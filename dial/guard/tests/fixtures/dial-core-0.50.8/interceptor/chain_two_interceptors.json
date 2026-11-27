@@ -1,0 +1,36 @@
+{
+  "case": "chain_two_interceptors",
+  "deployment_id": "spike-logger",
+  "upstream_deployment_id": "echo-global",
+  "api_key_present": true,
+  "authorization_present": false,
+  "headers": {
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "user-agent": "python-httpx/0.29.0",
+    "content-type": "application/json",
+    "x-conversation-id": "conv-chain_two_interceptors",
+    "x-dial-deployment-id": "echo-global",
+    "content-length": "133",
+    "host": "<host>",
+    "traceparent": "<volatile>"
+  },
+  "configuration": {
+    "mode": "from-defaults"
+  },
+  "body": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "chain"
+      }
+    ],
+    "stream": true,
+    "custom_fields": {
+      "interceptor_configuration": {
+        "mode": "from-defaults"
+      }
+    }
+  },
+  "response_chunks": []
+}

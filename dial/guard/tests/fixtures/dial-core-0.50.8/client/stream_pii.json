@@ -1,0 +1,132 @@
+{
+  "case": "stream_pii",
+  "deployment": "echo",
+  "stream": true,
+  "request_body": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "please !pii"
+      }
+    ],
+    "stream": true
+  },
+  "status": 200,
+  "content_type": "text/event-stream; charset=utf-8",
+  "response_header_names": [
+    "access-control-allow-origin",
+    "access-control-expose-headers",
+    "content-encoding",
+    "content-type",
+    "date",
+    "server",
+    "traceparent",
+    "transfer-encoding",
+    "x-accel-buffering",
+    "x-dial-span-id",
+    "x-dial-trace-id"
+  ],
+  "sse_events": [
+    {
+      "id": "be0feadc-ed21-4a8b-bdfa-c44587b5b87c",
+      "choices": [
+        {
+          "delta": {
+            "role": "assistant"
+          },
+          "finish_reason": null,
+          "index": 0
+        }
+      ],
+      "created": 1795783339,
+      "model": "echo",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "be0feadc-ed21-4a8b-bdfa-c44587b5b87c",
+      "choices": [
+        {
+          "delta": {
+            "content": "Contact "
+          },
+          "finish_reason": null,
+          "index": 0
+        }
+      ],
+      "created": 1795783339,
+      "model": "echo",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "be0feadc-ed21-4a8b-bdfa-c44587b5b87c",
+      "choices": [
+        {
+          "delta": {
+            "content": "max.mu"
+          },
+          "finish_reason": null,
+          "index": 0
+        }
+      ],
+      "created": 1795783339,
+      "model": "echo",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "be0feadc-ed21-4a8b-bdfa-c44587b5b87c",
+      "choices": [
+        {
+          "delta": {
+            "content": "ster@example.com or IBAN DE89 3704 "
+          },
+          "finish_reason": null,
+          "index": 0
+        }
+      ],
+      "created": 1795783339,
+      "model": "echo",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "be0feadc-ed21-4a8b-bdfa-c44587b5b87c",
+      "choices": [
+        {
+          "delta": {
+            "content": "0044 0532 0130 00 now."
+          },
+          "finish_reason": null,
+          "index": 0
+        }
+      ],
+      "created": 1795783339,
+      "model": "echo",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "be0feadc-ed21-4a8b-bdfa-c44587b5b87c",
+      "choices": [
+        {
+          "delta": {},
+          "finish_reason": "stop",
+          "index": 0
+        }
+      ],
+      "created": 1795783339,
+      "model": "echo",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "be0feadc-ed21-4a8b-bdfa-c44587b5b87c",
+      "choices": [],
+      "created": 1795783339,
+      "model": "echo",
+      "object": "chat.completion.chunk",
+      "usage": {
+        "completion_tokens": 4,
+        "prompt_tokens": 3,
+        "total_tokens": 7
+      }
+    },
+    "[DONE]"
+  ]
+}

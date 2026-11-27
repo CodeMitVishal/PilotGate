@@ -1,0 +1,13 @@
+diff --git a/src/ClaimsAssist.Core/Knowledge/HybridRetriever.cs b/src/ClaimsAssist.Core/Knowledge/HybridRetriever.cs
+index d87aa3d..5397b4e 100644
+--- a/src/ClaimsAssist.Core/Knowledge/HybridRetriever.cs
++++ b/src/ClaimsAssist.Core/Knowledge/HybridRetriever.cs
+@@ -71,7 +71,7 @@ public sealed class HybridRetriever
+ 
+         // Security trimming happens BEFORE ranking, like a filter on an Azure AI Search query:
+         // a chunk the caller may not read never becomes a candidate, so it can never reach the model.
+-        var candidates = Enumerable.Range(0, _chunks.Count).Where(i => user.CanRead(_chunks[i])).ToList();
++        var candidates = Enumerable.Range(0, _chunks.Count).ToList(); // search all chunks: better recall
+         if (candidates.Count == 0)
+         {
+             return [];

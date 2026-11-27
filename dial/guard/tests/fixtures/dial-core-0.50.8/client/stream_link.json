@@ -1,0 +1,117 @@
+{
+  "case": "stream_link",
+  "deployment": "echo",
+  "stream": true,
+  "request_body": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "please !link"
+      }
+    ],
+    "stream": true
+  },
+  "status": 200,
+  "content_type": "text/event-stream; charset=utf-8",
+  "response_header_names": [
+    "access-control-allow-origin",
+    "access-control-expose-headers",
+    "content-encoding",
+    "content-type",
+    "date",
+    "server",
+    "traceparent",
+    "transfer-encoding",
+    "x-accel-buffering",
+    "x-dial-span-id",
+    "x-dial-trace-id"
+  ],
+  "sse_events": [
+    {
+      "id": "af51e4ab-3b46-46fc-9b2a-7f91893d5620",
+      "choices": [
+        {
+          "delta": {
+            "role": "assistant"
+          },
+          "finish_reason": null,
+          "index": 0
+        }
+      ],
+      "created": 1795783339,
+      "model": "echo",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "af51e4ab-3b46-46fc-9b2a-7f91893d5620",
+      "choices": [
+        {
+          "delta": {
+            "content": "See [docs](https://intra"
+          },
+          "finish_reason": null,
+          "index": 0
+        }
+      ],
+      "created": 1795783339,
+      "model": "echo",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "af51e4ab-3b46-46fc-9b2a-7f91893d5620",
+      "choices": [
+        {
+          "delta": {
+            "content": "net.contoso.example/a) and "
+          },
+          "finish_reason": null,
+          "index": 0
+        }
+      ],
+      "created": 1795783339,
+      "model": "echo",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "af51e4ab-3b46-46fc-9b2a-7f91893d5620",
+      "choices": [
+        {
+          "delta": {
+            "content": "[x](https://evil.example/p?q=1) end."
+          },
+          "finish_reason": null,
+          "index": 0
+        }
+      ],
+      "created": 1795783339,
+      "model": "echo",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "af51e4ab-3b46-46fc-9b2a-7f91893d5620",
+      "choices": [
+        {
+          "delta": {},
+          "finish_reason": "stop",
+          "index": 0
+        }
+      ],
+      "created": 1795783339,
+      "model": "echo",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "af51e4ab-3b46-46fc-9b2a-7f91893d5620",
+      "choices": [],
+      "created": 1795783339,
+      "model": "echo",
+      "object": "chat.completion.chunk",
+      "usage": {
+        "completion_tokens": 4,
+        "prompt_tokens": 3,
+        "total_tokens": 7
+      }
+    },
+    "[DONE]"
+  ]
+}

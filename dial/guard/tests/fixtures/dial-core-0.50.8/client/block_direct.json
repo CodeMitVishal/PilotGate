@@ -1,0 +1,50 @@
+{
+  "case": "block_direct",
+  "deployment": "echo-direct",
+  "stream": false,
+  "request_body": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "hello direct"
+      }
+    ],
+    "stream": false
+  },
+  "status": 200,
+  "content_type": "application/json",
+  "response_header_names": [
+    "access-control-allow-origin",
+    "access-control-expose-headers",
+    "content-encoding",
+    "content-length",
+    "content-type",
+    "date",
+    "server",
+    "traceparent",
+    "x-dial-span-id",
+    "x-dial-trace-id",
+    "x-upstream-attempts"
+  ],
+  "body": {
+    "id": "echo-1",
+    "object": "chat.completion",
+    "created": 1,
+    "model": "echo-direct",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "You said: hello direct"
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 3,
+      "completion_tokens": 4,
+      "total_tokens": 7
+    }
+  }
+}

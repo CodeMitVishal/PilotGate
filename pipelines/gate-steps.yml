@@ -1,0 +1,54 @@
+# Steps shared by the self-hosted and the Microsoft-hosted job in azure-pipelines.yml.
+parameters:
+  - name: installDotNet
+    type: boolean
+    default: false
+  - name: scriptType
+    type: string
+    default: ps
+    values: [ ps, pscore ]
+
+steps:
+  - checkout: self
+    clean: true
+
+  - ${{ if eq(parameters.installDotNet, true) }}:
+      - task: UseDotNet@2
+        displayName: Install the .NET 10 SDK
+        inputs:
+          packageType: sdk
+          version: 10.0.x
+
+  - script: dotnet test --nologo
+    displayName: Unit tests (offline)
+
+  # DIAL Guard (Python): unit, property and SDK-level tests in the pinned Linux image, hash-locked dependencies.
+  - task: PowerShell@2
+    displayName: DIAL Guard tests (offline)
+    inputs:
+      targetType: filePath
+      filePath: scripts/test-guard.ps1
+      pwsh: ${{ eq(parameters.scriptType, 'pscore') }}
+
+  # The gate runs inside the Azure CLI task, because the federated sign-in exists only for the task's duration.
+  - task: AzureCLI@2
+    displayName: Production gate (NO-GO fails the run)
+    inputs:
+      azureSubscription: pilotgate-azure
+      scriptType: ${{ parameters.scriptType }}
+      scriptLocation: scriptPath
+      scriptPath: scripts/run-gate.ps1
+      # No parentheses or other shell metacharacters: the task's argument check rejects them.
+      # Port 5180, so the self-hosted agent never collides with a ClaimsAssist a developer runs on 5080.
+      arguments: -Label "Azure Pipelines $(Build.BuildNumber) $(Build.Reason)" -Port 5180
+    env:
+      AZURE_OPENAI_ENDPOINT: $(AZURE_OPENAI_ENDPOINT)
+      # Outside the cleaned workspace, so unchanged answers are not judged (and billed) again.
+      PILOTGATE_JUDGE_CACHE: $(Agent.ToolsDirectory)/pilotgate-judge-cache
+
+  - task: PublishPipelineArtifact@1
+    displayName: Publish the evidence pack
+    condition: succeededOrFailed()
+    inputs:
+      targetPath: evidence/latest
+      artifact: pilotgate-evidence

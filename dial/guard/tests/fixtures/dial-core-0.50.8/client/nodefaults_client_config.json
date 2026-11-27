@@ -1,0 +1,54 @@
+{
+  "case": "nodefaults_client_config",
+  "deployment": "echo-nodefaults",
+  "stream": false,
+  "request_body": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "client config nodefaults"
+      }
+    ],
+    "stream": false,
+    "custom_fields": {
+      "interceptor_configuration": {
+        "mode": "from-client"
+      }
+    }
+  },
+  "status": 200,
+  "content_type": "application/json",
+  "response_header_names": [
+    "access-control-allow-origin",
+    "access-control-expose-headers",
+    "content-encoding",
+    "content-type",
+    "date",
+    "server",
+    "traceparent",
+    "transfer-encoding",
+    "x-dial-span-id",
+    "x-dial-trace-id"
+  ],
+  "body": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "content": "You said: client config nodefaults",
+          "role": "assistant"
+        }
+      }
+    ],
+    "usage": {
+      "completion_tokens": 4,
+      "prompt_tokens": 3,
+      "total_tokens": 7
+    },
+    "id": "68f640f6-d4fd-42fd-a275-e219544438ee",
+    "created": 1795783471,
+    "object": "chat.completion",
+    "model": "echo-nodefaults"
+  }
+}

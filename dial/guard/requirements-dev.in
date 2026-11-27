@@ -1,0 +1,5 @@
+# Test tools for DIAL Guard, constrained to the runtime lock. Locked with hashes in requirements-dev.lock.
+-c requirements.lock
+pytest
+hypothesis
+jsonschema

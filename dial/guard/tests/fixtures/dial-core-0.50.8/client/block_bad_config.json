@@ -1,0 +1,55 @@
+{
+  "case": "block_bad_config",
+  "deployment": "echo",
+  "stream": false,
+  "request_body": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "bad config"
+      }
+    ],
+    "stream": false,
+    "custom_fields": {
+      "interceptor_configuration": {
+        "mode": 123,
+        "unknown": true
+      }
+    }
+  },
+  "status": 200,
+  "content_type": "application/json",
+  "response_header_names": [
+    "access-control-allow-origin",
+    "access-control-expose-headers",
+    "content-encoding",
+    "content-type",
+    "date",
+    "server",
+    "traceparent",
+    "transfer-encoding",
+    "x-dial-span-id",
+    "x-dial-trace-id"
+  ],
+  "body": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "content": "You said: bad config",
+          "role": "assistant"
+        }
+      }
+    ],
+    "usage": {
+      "completion_tokens": 4,
+      "prompt_tokens": 3,
+      "total_tokens": 7
+    },
+    "id": "48049a7c-8aea-46fe-850e-81dad17634d1",
+    "created": 1795783339,
+    "object": "chat.completion",
+    "model": "echo"
+  }
+}

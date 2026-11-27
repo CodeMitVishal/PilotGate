@@ -1,0 +1,53 @@
+# PilotGate CI on Azure Pipelines: offline unit tests, then the production gate against the real model.
+# A NO-GO verdict fails the run, and the evidence pack is published as a pipeline artifact.
+# Pull requests into main run this pipeline through a build-validation branch policy in Azure Repos.
+# Azure sign-in: the service connection "pilotgate-azure" uses workload identity federation with the managed
+# identity id-pilotgate-ci from infra/ci-identity.bicep. No secret exists, and the identity can only call the model.
+# The variable group "pilotgate-ci" holds AZURE_OPENAI_ENDPOINT, which is not a secret.
+
+trigger: none
+
+parameters:
+  - name: useMicrosoftHostedAgent
+    displayName: Use a Microsoft-hosted agent (needs the free parallelism grant for private projects)
+    type: boolean
+    default: false
+
+variables:
+  - group: pilotgate-ci
+  - name: DOTNET_NOLOGO
+    value: "true"
+  - name: DOTNET_CLI_TELEMETRY_OPTOUT
+    value: "true"
+  # No resident build servers: they hold memory while the gate measures the agent's latency.
+  - name: MSBUILDDISABLENODEREUSE
+    value: "1"
+  - name: DOTNET_CLI_USE_MSBUILD_SERVER
+    value: "0"
+  - name: UseSharedCompilation
+    value: "false"
+
+jobs:
+  - ${{ if eq(parameters.useMicrosoftHostedAgent, true) }}:
+      - job: gate
+        displayName: Unit tests and production gate (Microsoft-hosted)
+        timeoutInMinutes: 30
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - template: pipelines/gate-steps.yml
+            parameters:
+              installDotNet: true
+              scriptType: pscore
+
+  - ${{ if ne(parameters.useMicrosoftHostedAgent, true) }}:
+      - job: gate
+        displayName: Unit tests and production gate (self-hosted)
+        timeoutInMinutes: 30
+        pool:
+          name: Default # Windows with the .NET 10 SDK and Azure CLI installed
+        steps:
+          - template: pipelines/gate-steps.yml
+            parameters:
+              installDotNet: false
+              scriptType: ps # Windows PowerShell 5.1

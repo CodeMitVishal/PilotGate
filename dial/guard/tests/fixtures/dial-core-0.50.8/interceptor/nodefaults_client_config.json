@@ -1,0 +1,49 @@
+{
+  "case": "nodefaults_client_config",
+  "deployment_id": "spike-logger",
+  "upstream_deployment_id": "echo-nodefaults",
+  "api_key_present": true,
+  "authorization_present": false,
+  "headers": {
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "user-agent": "python-httpx/0.29.0",
+    "content-type": "application/json",
+    "x-conversation-id": "conv-nodefaults_client_config",
+    "x-dial-deployment-id": "echo-nodefaults",
+    "content-length": "82",
+    "host": "<host>",
+    "traceparent": "<volatile>"
+  },
+  "configuration": {
+    "mode": "unset"
+  },
+  "body": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "client config nodefaults"
+      }
+    ],
+    "stream": false
+  },
+  "response_chunks": [
+    {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "delta": {
+            "content": "You said: client config nodefaults",
+            "role": "assistant"
+          }
+        }
+      ],
+      "usage": {
+        "completion_tokens": 4,
+        "prompt_tokens": 3,
+        "total_tokens": 7
+      }
+    }
+  ]
+}

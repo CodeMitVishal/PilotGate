@@ -1,0 +1,85 @@
+{
+  "applications": {
+    "mock-echo": {
+      "endpoint": "http://mockmodel:7001/openai/deployments/mock-echo/chat/completions",
+      "displayName": "Mock model behind DIAL Guard (strict profile)",
+      "interceptors": ["dial-guard-strict"],
+      "userRoles": ["tester"]
+    },
+    "mock-echo-monitor": {
+      "endpoint": "http://mockmodel:7001/openai/deployments/mock-echo-monitor/chat/completions",
+      "displayName": "Mock model behind DIAL Guard (monitor profile)",
+      "interceptors": ["dial-guard-monitor"],
+      "userRoles": ["tester"]
+    },
+    "mock-echo-unguarded": {
+      "endpoint": "http://mockmodel:7001/openai/deployments/mock-echo-unguarded/chat/completions",
+      "displayName": "Mock model without DIAL Guard (baseline for tests)",
+      "userRoles": ["tester"]
+    },
+    "claimsassist": {
+      "endpoint": "http://host.docker.internal:5280/openai/deployments/claimsassist/chat/completions",
+      "displayName": "ClaimsAssist",
+      "description": "Claims assistant for Contoso Versicherung (synthetic data)",
+      "interceptors": ["dial-guard-claimsassist"],
+      "userRoles": ["claims-property", "claims-motor", "claims-health", "siu", "claims-intern"]
+    }
+  },
+  "interceptors": {
+    "dial-guard-strict": {
+      "endpoint": "http://guard:8000/openai/deployments/dial-guard/chat/completions",
+      "displayName": "DIAL Guard (strict)",
+      "description": "Quarantines untrusted input; redacts PII, removes links outside the allow-list, stops on leak markers",
+      "defaults": {
+        "custom_fields": {
+          "interceptor_configuration": {
+            "profile": "strict",
+            "allowed_link_hosts": ["intranet.contoso.example"],
+            "canaries": ["SYS-CANARY-9921"],
+            "tool_names": ["propose_settlement", "get_claim", "search_knowledge"]
+          }
+        }
+      }
+    },
+    "dial-guard-monitor": {
+      "endpoint": "http://guard:8000/openai/deployments/dial-guard/chat/completions",
+      "displayName": "DIAL Guard (monitor only)",
+      "defaults": {
+        "custom_fields": {
+          "interceptor_configuration": {
+            "profile": "monitor",
+            "mode": "monitor",
+            "allowed_link_hosts": ["intranet.contoso.example"],
+            "canaries": ["SYS-CANARY-9921"],
+            "tool_names": ["propose_settlement", "get_claim", "search_knowledge"]
+          }
+        }
+      }
+    },
+    "dial-guard-claimsassist": {
+      "endpoint": "http://guard:8000/openai/deployments/dial-guard/chat/completions",
+      "displayName": "DIAL Guard (ClaimsAssist)",
+      "defaults": {
+        "custom_fields": {
+          "interceptor_configuration": {
+            "profile": "claimsassist",
+            "allowed_link_hosts": ["intranet.contoso.example"],
+            "canaries": ["SYS-CANARY-9921"],
+            "tool_names": ["propose_settlement", "get_claim", "search_knowledge"]
+          }
+        }
+      }
+    }
+  },
+  "roles": {
+    "tester": {
+      "limits": { "mock-echo": {}, "mock-echo-monitor": {}, "mock-echo-unguarded": {} }
+    },
+    "claims-property": { "limits": { "claimsassist": {} } },
+    "claims-motor": { "limits": { "claimsassist": {} } },
+    "claims-health": { "limits": { "claimsassist": {} } },
+    "siu": { "limits": { "claimsassist": {} } },
+    "claims-intern": { "limits": { "claimsassist": {} } }
+  },
+  "keys": {}
+}

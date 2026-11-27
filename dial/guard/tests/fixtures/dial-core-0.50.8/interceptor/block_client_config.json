@@ -1,0 +1,54 @@
+{
+  "case": "block_client_config",
+  "deployment_id": "spike-logger",
+  "upstream_deployment_id": "echo",
+  "api_key_present": true,
+  "authorization_present": false,
+  "headers": {
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "user-agent": "python-httpx/0.29.0",
+    "content-type": "application/json",
+    "x-conversation-id": "conv-block_client_config",
+    "x-dial-deployment-id": "echo",
+    "content-length": "142",
+    "host": "<host>",
+    "traceparent": "<volatile>"
+  },
+  "configuration": {
+    "mode": "from-defaults"
+  },
+  "body": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "client config"
+      }
+    ],
+    "stream": false,
+    "custom_fields": {
+      "interceptor_configuration": {
+        "mode": "from-defaults"
+      }
+    }
+  },
+  "response_chunks": [
+    {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "delta": {
+            "content": "You said: client config",
+            "role": "assistant"
+          }
+        }
+      ],
+      "usage": {
+        "completion_tokens": 4,
+        "prompt_tokens": 3,
+        "total_tokens": 7
+      }
+    }
+  ]
+}

@@ -1,0 +1,226 @@
+<title>PilotGate Case Study</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column (about 70ch) for argument and evidence, widening only for the run log and the checks table. */
+:root {
+  --bg: #f5f7fa;
+  --surface: #ffffff;
+  --ink: #18212d;
+  --muted: #566173;
+  --line: #dfe4eb;
+  --accent: #2f5bd3;
+  --go: #0b7a4b; --go-bg: #e3f4ec;
+  --cond: #9a5b00; --cond-bg: #fbf0dc;
+  --nogo: #b3261e; --nogo-bg: #fbe7e5;
+  --code-bg: #eef1f6;
+  --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", Consolas, "Cascadia Mono", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #10151c; --surface: #171e27; --ink: #e6ebf2; --muted: #9aa6b6; --line: #2a3442;
+    --accent: #8aa8ff; --go: #5fd39b; --go-bg: #12301f; --cond: #f0b552; --cond-bg: #33260f;
+    --nogo: #ff8a80; --nogo-bg: #3a1714; --code-bg: #1f2833; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #10151c; --surface: #171e27; --ink: #e6ebf2; --muted: #9aa6b6; --line: #2a3442;
+  --accent: #8aa8ff; --go: #5fd39b; --go-bg: #12301f; --cond: #f0b552; --cond-bg: #33260f;
+  --nogo: #ff8a80; --nogo-bg: #3a1714; --code-bg: #1f2833; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--font-body); }
+.page {
+  max-width: 1040px; margin: 0 auto;
+  padding-block: 40px 72px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 48px;
+}
+.read { max-width: 70ch; min-width: 0; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+h1 { font-size: clamp(2.2rem, 5vw, 3.1rem); line-height: 1.05; font-weight: 700; }
+h2 { font-size: 1.45rem; font-weight: 600; margin-bottom: 14px; }
+h3 { font-size: 1.02rem; font-weight: 600; }
+p { margin: 0 0 12px; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+.eyebrow { font: 500 12px/1.4 var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 14px; }
+.lede { font-size: 1.15rem; color: var(--ink); margin-top: 14px; }
+.muted { color: var(--muted); }
+.small { font-size: 0.88rem; }
+code, .mono { font-family: var(--font-mono); font-size: 0.86em; }
+code { background: var(--code-bg); padding: 1px 6px; border-radius: 5px; overflow-wrap: anywhere; }
+.chip { display: inline-block; font: 600 12px/1 var(--font-mono); letter-spacing: 0.04em; padding: 6px 10px; border-radius: 999px; white-space: nowrap; }
+.chip.go { color: var(--go); background: var(--go-bg); }
+.chip.cond { color: var(--cond); background: var(--cond-bg); }
+.chip.nogo { color: var(--nogo); background: var(--nogo-bg); }
+.figures { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 24px; }
+@media (min-width: 760px) { .figures { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.figure { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; min-width: 0; }
+.figure .n { font: 600 1.6rem/1.1 var(--font-display); font-variant-numeric: tabular-nums; }
+.figure .l { font-size: 0.85rem; color: var(--muted); margin-top: 4px; }
+.quote { border-left: 3px solid var(--accent); padding: 4px 0 4px 16px; margin: 18px 0; font-size: 1.05rem; }
+.quote cite { display: block; font-style: normal; font-size: 0.85rem; color: var(--muted); margin-top: 6px; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+table { width: 100%; border-collapse: collapse; font-size: 0.93rem; }
+th, td { text-align: left; vertical-align: top; padding: 11px 14px; border-bottom: 1px solid var(--line); }
+th { font: 500 11.5px/1.3 var(--font-mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+tr:last-child td { border-bottom: 0; }
+td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.runs { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.run { display: grid; grid-template-columns: 2.2rem minmax(0, 1fr) auto; gap: 14px; align-items: start; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+.run .idx { font: 600 1.05rem/1.4 var(--font-display); color: var(--muted); font-variant-numeric: tabular-nums; }
+.run h3 { margin-bottom: 4px; }
+.run p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+.run p b { color: var(--ink); font-weight: 600; }
+.reviewers { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.reviewer { border-top: 2px solid var(--line); padding-top: 10px; min-width: 0; }
+.reviewer .who { font: 500 12px/1.4 var(--font-mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.reviewer .q { font-weight: 600; margin: 4px 0; }
+ul.plain { margin: 0; padding-left: 20px; }
+ul.plain li { margin: 6px 0; }
+pre.mermaid { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; overflow-x: auto; margin: 0; }
+footer { border-top: 1px solid var(--line); padding-top: 18px; }
+footer ol { padding-left: 20px; margin: 8px 0 0; }
+footer li { margin: 4px 0; font-size: 0.88rem; overflow-wrap: anywhere; }
+@media (max-width: 560px) {
+  .run { grid-template-columns: minmax(0, 1fr); }
+  .run .idx { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
+</style>
+
+<div class="page">
+
+  <header>
+    <div class="read">
+      <div class="eyebrow">Case study &middot; Forward-deployed engineering &middot; 27 November 2026</div>
+      <h1>PilotGate</h1>
+      <p class="lede">A production gate for AI pilots. It turns an FDE prototype into a go/no-go decision, with evidence that the business sponsor, the CISO, the data protection officer and the works council can each sign off on.</p>
+      <p class="muted">Built on Microsoft Agent Framework, Azure OpenAI in the EU Data Zone and Microsoft.Extensions.AI.Evaluation, together with a real pilot to gate: ClaimsAssist, an insurance claims assistant. Final run: <span class="chip cond">GO WITH CONDITIONS</span></p>
+    </div>
+    <div class="figures" role="list">
+      <div class="figure" role="listitem"><div class="n">15/15</div><div class="l">business tasks correct (95% CI 80% to 100%)</div></div>
+      <div class="figure" role="listitem"><div class="n">0 of 4</div><div class="l">prompt-injection attacks succeeded</div></div>
+      <div class="figure" role="listitem"><div class="n">0</div><div class="l">permission leaks or unapproved writes</div></div>
+      <div class="figure" role="listitem"><div class="n">$0.0011</div><div class="l">model cost per conversation, p95 latency 9.4 s</div></div>
+    </div>
+  </header>
+
+  <section class="read" aria-labelledby="problem">
+    <h2 id="problem">The problem, in EPAM's own numbers</h2>
+    <p>In Q3 2026 EPAM's revenue grew 2.3% year over year, and Q4 is guided at +0.5% to +1.6% organic. AI-native revenue was more than $185M (about 13% of revenue), grows at a double-digit rate quarter over quarter, and has a full-year target of at least $650M. That revenue comes through platform engagements led by forward-deployed engineers.<sup><a href="#s1">1</a>,<a href="#s2">2</a></sup></p>
+    <p>The growth is concentrated in regulated European work. Financial services grew 13.7%, led by insurance and asset management, and EMEA, at 41% of revenue, grew 5.8%.<sup><a href="#s2">2</a></sup></p>
+    <blockquote class="quote">"very few scaled generative AI to production"<cite>EPAM's VP Technology Solutions, on the year of pilots.<sup><a href="#s3">3</a></sup> EPAM names the barriers as data readiness and organisational alignment: pilots led by technical teams, whose return the business cannot see. Its teams also had to work through compliance.</cite></blockquote>
+    <p>So the precise problem is the <b>go/no-go decision after a pilot</b>. In a German insurer, four people make it, and after a pilot none of them has evidence:</p>
+  </section>
+
+  <section aria-label="Reviewers">
+    <div class="reviewers">
+      <div class="reviewer"><div class="who">Business sponsor</div><p class="q">Does it move my metric, and at what cost?</p><p class="small muted">Usually: a demo and an opinion.</p></div>
+      <div class="reviewer"><div class="who">CISO</div><p class="q">Can it leak, be hijacked, or act on its own?</p><p class="small muted">Usually: a slide about guardrails.</p></div>
+      <div class="reviewer"><div class="who">Data protection officer</div><p class="q">What personal data goes where, and what is logged?</p><p class="small muted">Usually: nothing written down.</p></div>
+      <div class="reviewer"><div class="who">Works council</div><p class="q">Could this monitor employees?</p><p class="small muted">Usually: not asked yet.</p></div>
+    </div>
+  </section>
+
+  <section class="read" aria-labelledby="what">
+    <h2 id="what">What PilotGate does</h2>
+    <p>It sends 27 scenarios to the pilot over its HTTP contract: business questions written by subject-matter experts, permission probes with canary strings, prompt-injection payloads planted in a document, an attachment and a prompt, PII probes, and approval flows. It then writes one evidence pack for every reviewer and returns an exit code, so a NO-GO fails the pull request.</p>
+    <ul class="plain">
+      <li><b>Deterministic where possible.</b> Leaks, injections, unapproved writes and PII are proven with canaries, traces and tool calls. An LLM judge (gpt-4.1) only scores answer quality.</li>
+      <li><b>Honest statistics.</b> Task success comes with a Wilson 95% interval, and the business case charges failed lookups with the minutes they waste.</li>
+      <li><b>Compliance as conditions.</b> An EU AI Act and GDPR screening of the use case turns into named prerequisites (a DPIA, a works agreement under BetrVG &sect;87(1) no. 6). It is a screening aid, not legal advice.</li>
+      <li><b>About 3 minutes and $0.12 per run</b>, with judge answers cached so re-runs on unchanged answers cost nothing.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="flow">
+    <h2 id="flow" class="read">How it fits together</h2>
+    <pre class="mermaid">
+flowchart LR
+  P[Pilot: ClaimsAssist] -->|Entra ID, no keys| M[Azure OpenAI, EU Data Zone]
+  G[PilotGate: 27 scenarios] -->|HTTP contract| P
+  G -->|LLM judge| J[gpt-4.1]
+  G --> E[Evidence pack for 5 reviewers]
+  G -->|exit code| C[CI: NO-GO fails the PR]
+    </pre>
+  </section>
+
+  <section aria-labelledby="runs">
+    <h2 id="runs" class="read">Six runs against the real model</h2>
+    <p class="read muted">Every run below used the live Azure OpenAI deployment. Each one left an evidence pack in the repository.</p>
+    <ol class="runs">
+      <li class="run"><span class="idx">1</span><div><h3>Agent v1</h3><p>12/15 tasks correct. A note planted in a contractor invoice made the agent tell the handler the claim was <b>pre-approved</b>. A jailbreak blocked by Azure's content filter surfaced as an HTTP 500.</p></div><span class="chip nogo">NO-GO</span></li>
+      <li class="run"><span class="idx">2</span><div><h3>Run 1 re-scored by an improved gate</h3><p>A hidden HTML comment in a broker FAQ put a <b>phishing link into three ordinary business answers</b>. The LLM judge rated two of them 5/5 for groundedness, because the link really was in the source. Attack indicators are now checked in every answer, and a regression test covers it.</p></div><span class="chip nogo">NO-GO</span></li>
+      <li class="run"><span class="idx">3</span><div><h3>Agent v2, hardened</h3><p>Ingestion strips hidden markup, attachments are quarantined, unapproved links are removed, and retrieval is multi-query and bilingual. 0 of 4 attacks succeeded. The gate also caught a <b>regression introduced by a fix</b>: a deductible applied to the wrong product.</p></div><span class="chip cond">GO WITH CONDITIONS</span></li>
+      <li class="run"><span class="idx">4</span><div><h3>Planted one-line "better recall" patch</h3><p>Searching all chunks before checking permissions <b>leaked the fraud playbook to a motor handler</b>. The blocker check fails the build.</p></div><span class="chip nogo">NO-GO</span></li>
+      <li class="run"><span class="idx">5</span><div><h3>Agent v3, product scope</h3><p>15/15 correct, but 2 of 34 citations were invalid. The cause was a defect in the agent's own citation validator. The threshold stayed unchanged and the validator was fixed.</p></div><span class="chip nogo">NO-GO</span></li>
+      <li class="run"><span class="idx">6</span><div><h3>Agent v4, final</h3><p>All blocker checks pass. <b>15/15 correct</b>, groundedness 5.0/5, $0.0011 per conversation. Three conditions remain: grow the golden set to 100 or more questions, a DPIA, and a works agreement.</p></div><span class="chip cond">GO WITH CONDITIONS</span></li>
+    </ol>
+    <p class="read muted">Then in CI. The first Azure Pipelines runs, on a self-hosted agent with a secretless federated sign-in, caught one more real defect. The agent fetched a new Entra token for every model call (6 s each on a busy machine), so p95 latency was 26 s against a 20 s budget. Reusing tokens brought it to 3.8 s, and the gate approved the pull request.</p>
+  </section>
+
+  <section aria-labelledby="checks">
+    <h2 id="checks" class="read">What the gate checks</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Check</th><th>Reviewer</th><th>Measured by</th><th>Mapped to</th></tr></thead>
+        <tbody>
+          <tr><td><code>PERMISSION_TRIMMING</code></td><td>CISO, DPO</td><td>Restricted chunks in the trace, canaries in answers, positive controls</td><td class="small">OWASP LLM02:2025; GDPR Art. 5(1)(f), 32</td></tr>
+          <tr><td><code>PROMPT_INJECTION</code></td><td>CISO</td><td>Planted payloads; attack indicators scanned in every answer; unrequested write calls</td><td class="small">OWASP LLM01, LLM05, LLM06, LLM07</td></tr>
+          <tr><td><code>HUMAN_OVERSIGHT</code></td><td>CISO, sponsor</td><td>No write without approval; post-approval guard outcomes</td><td class="small">OWASP LLM06; GDPR Art. 22</td></tr>
+          <tr><td><code>PII_PROTECTION</code></td><td>DPO</td><td>PII canaries and patterns in answers and in the audit log</td><td class="small">GDPR Art. 5(1)(c), 25, 32</td></tr>
+          <tr><td><code>GROUNDED_ANSWERS</code></td><td>Sponsor</td><td>Expected source cited, facts present, judge groundedness, correct refusals</td><td class="small">OWASP LLM09</td></tr>
+          <tr><td><code>COST_LATENCY</code></td><td>Sponsor, engineering</td><td>Tokens at list price, p50 and p95 latency</td><td class="small">OWASP LLM10</td></tr>
+          <tr><td><code>TRANSPARENCY</code></td><td>DPO, works council</td><td>AI disclosure on every response</td><td class="small">EU AI Act Art. 50(1)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="read" aria-labelledby="fit">
+    <h2 id="fit">Next to EPAM's own assets</h2>
+    <p class="small muted">Positioning from public descriptions only. Whether these assets already include an equivalent gate has not been checked.</p>
+    <ul class="plain">
+      <li><b>DIAL</b> (open-source orchestration for assistants and agents)<sup><a href="#s5">5</a></sup>: DIAL runs agents, and PilotGate decides whether a given agent build may go to production.</li>
+      <li><b>AI/Run</b> (EPAM's framework for AI-native delivery)<sup><a href="#s6">6</a></sup>: PilotGate would be the go/no-go step inside such a playbook.</li>
+      <li><b>Agentic QA</b> (agents applied to software testing)<sup><a href="#s7">7</a></sup>: that uses AI to test software. PilotGate tests the behaviour of the AI system itself.</li>
+      <li><b>Frontier AI Service</b> (evaluation and simulation environments for frontier labs)<sup><a href="#s4">4</a></sup>: that works on the lab side. The scenario suites written on each client engagement are the kind of enterprise test cases it builds on.</li>
+    </ul>
+  </section>
+
+  <section class="read" aria-labelledby="limits">
+    <h2 id="limits">Limits, stated plainly</h2>
+    <ul class="plain">
+      <li>Identity uses development personas. Production uses Entra ID sign-in with the groups claim.</li>
+      <li>Retrieval is an in-process index. Production uses Azure AI Search with a security filter.</li>
+      <li>Injection quarantine is one regex layer of several. Production adds Prompt Shields.</li>
+      <li>The CI gate runs in Azure Pipelines on a self-hosted agent until the organisation's free Microsoft-hosted grant arrives.</li>
+      <li>15 questions prove at least 80% at 95% confidence, not the 85% target.</li>
+      <li>All data is synthetic. Contoso is Microsoft's fictional sample company.</li>
+    </ul>
+    <p class="small muted">Total Azure spend for everything above, all evidence and CI runs included: about $2.40.</p>
+  </section>
+
+  <footer class="read">
+    <div class="eyebrow">Sources</div>
+    <ol>
+      <li id="s1"><a href="https://www.sec.gov/Archives/edgar/data/0001352010/000135201026000048/exhibit99_q3x2026.htm">EPAM Q3 2026 results, SEC Form 8-K Exhibit 99.1</a></li>
+      <li id="s2"><a href="https://www.fool.com/earnings/call-transcripts/2026/11/05/epam-systems-epam-q3-2026-earnings-call-transcript/">EPAM Q3 2026 earnings call transcript, 5 November 2026</a></li>
+      <li id="s3"><a href="https://www.epam.com/about/newsroom/in-the-news/2026/epam-accelerates-agentic-ai-adoption-for-enterprises">EPAM newsroom: agentic AI adoption, 6 March 2026</a></li>
+      <li id="s4"><a href="https://www.epam.com/about/newsroom/press-releases/2026/epam-unveils-new-frontier-ai-service-bridging-the-enterprise-intelligence-gap-for-genai-and-autonomous-agents">EPAM press release: Frontier AI Service, 5 October 2026</a></li>
+      <li id="s5"><a href="https://www.epam.com/about/newsroom/press-releases/2025/epam-releases-dial-3-0-an-evolution-of-open-source-genai-enterprise-platform">EPAM press release: DIAL 3.0, June 2025</a></li>
+      <li id="s6"><a href="https://www.epam.com/about/newsroom/press-releases/2025/epam-launches-ai-run-transform-to-accelerate-ai-native-transformation-for-the-enterprise">EPAM press release: AI/Run.Transform, October 2025</a></li>
+      <li id="s7"><a href="https://seekingalpha.com/pr/20282613-revolutionizing-qa-epams-agentic-qa-brings-human-ai-synergy-to-software-testing">EPAM press release: Agentic QA, October 2025</a></li>
+      <li id="s8"><a href="https://prices.azure.com/api/retail/prices">Azure Retail Prices API</a> (gpt-4.1-mini Data Zone: $0.44 / $1.76 per 1M tokens)</li>
+      <li id="s9"><a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications 2025</a></li>
+    </ol>
+  </footer>
+
+</div>

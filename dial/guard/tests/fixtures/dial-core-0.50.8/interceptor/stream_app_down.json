@@ -1,0 +1,36 @@
+{
+  "case": "stream_app_down",
+  "deployment_id": "spike-logger",
+  "upstream_deployment_id": "echo",
+  "api_key_present": true,
+  "authorization_present": false,
+  "headers": {
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "user-agent": "python-httpx/0.29.0",
+    "content-type": "application/json",
+    "x-conversation-id": "conv-stream_app_down",
+    "x-dial-deployment-id": "echo",
+    "content-length": "136",
+    "host": "<host>",
+    "traceparent": "<volatile>"
+  },
+  "configuration": {
+    "mode": "from-defaults"
+  },
+  "body": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "app down"
+      }
+    ],
+    "stream": true,
+    "custom_fields": {
+      "interceptor_configuration": {
+        "mode": "from-defaults"
+      }
+    }
+  },
+  "response_chunks": []
+}

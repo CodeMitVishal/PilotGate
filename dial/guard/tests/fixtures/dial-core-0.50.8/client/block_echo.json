@@ -1,0 +1,49 @@
+{
+  "case": "block_echo",
+  "deployment": "echo",
+  "stream": false,
+  "request_body": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "hello block"
+      }
+    ],
+    "stream": false
+  },
+  "status": 200,
+  "content_type": "application/json",
+  "response_header_names": [
+    "access-control-allow-origin",
+    "access-control-expose-headers",
+    "content-encoding",
+    "content-type",
+    "date",
+    "server",
+    "traceparent",
+    "transfer-encoding",
+    "x-dial-span-id",
+    "x-dial-trace-id"
+  ],
+  "body": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "content": "You said: hello block",
+          "role": "assistant"
+        }
+      }
+    ],
+    "usage": {
+      "completion_tokens": 4,
+      "prompt_tokens": 3,
+      "total_tokens": 7
+    },
+    "id": "694e722a-878e-46db-95fc-2b1cb2029f4c",
+    "created": 1795783322,
+    "object": "chat.completion",
+    "model": "echo"
+  }
+}

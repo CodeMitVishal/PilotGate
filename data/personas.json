@@ -1,0 +1,33 @@
+{
+  "_note": "Development identities only. In production, groups come from the 'groups' claim of the user's Microsoft Entra ID token (security group object IDs mapped to these names).",
+  "personas": [
+    {
+      "id": "anna.property",
+      "displayName": "Anna Becker",
+      "role": "Claims handler, property",
+      "groups": [ "all-claims", "claims-property" ],
+      "settlementAuthorityEur": 5000
+    },
+    {
+      "id": "ben.motor",
+      "displayName": "Ben Kaya",
+      "role": "Claims handler, motor",
+      "groups": [ "all-claims", "claims-motor" ],
+      "settlementAuthorityEur": 7500
+    },
+    {
+      "id": "clara.health",
+      "displayName": "Clara Wolf",
+      "role": "Claims handler, supplementary health",
+      "groups": [ "all-claims", "claims-health" ],
+      "settlementAuthorityEur": 3000
+    },
+    {
+      "id": "sam.siu",
+      "displayName": "Sam Richter",
+      "role": "Special Investigations Unit (fraud)",
+      "groups": [ "all-claims", "claims-property", "claims-motor", "siu" ],
+      "settlementAuthorityEur": 0
+    }
+  ]
+}

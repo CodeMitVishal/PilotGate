@@ -1,0 +1,37 @@
+{
+  "eventFiles": ["../dial/stack/data/events/events.jsonl"],
+  "auditFiles": ["../logs/claimsassist-dial-audit.jsonl"],
+  "schemaFile": "../dial/schema/guard-event.v1.schema.json",
+  "windowMinutes": 60,
+  "baselineWindows": 24,
+  "thresholds": {
+    "minRequests": 20,
+    "maxGuardErrorRate": 0.01,
+    "maxFailOpenPassthroughs": 0,
+    "maxBlockedRate": 0.01,
+    "maxRejectedRate": 0.05,
+    "maxFindingRate": { "pii": 0.2, "link": 0.2, "injection": 0.1, "attachment_url": 0.05, "canary": 0.01 },
+    "maxP95DurationMs": 20000,
+    "maxAgentBlockedRate": 0.05,
+    "maxAgentP95LatencyMs": 20000
+  },
+  "drift": { "factor": 3, "minRate": 0.05, "minBaselineRequests": 50 },
+  "alerts": {
+    "webhookUrlEnvironmentVariable": "PILOTGATE_WATCH_WEBHOOK",
+    "timeoutSeconds": 10,
+    "maxAttempts": 4,
+    "initialBackoffMilliseconds": 500
+  },
+  "rescoring": {
+    "enabled": false,
+    "sampleSize": 5,
+    "maxUsd": 0.05,
+    "deployment": "gpt-4.1-mini",
+    "endpointEnvironmentVariable": "PILOTGATE_JUDGE_ENDPOINT",
+    "inputPer1M": 0.4,
+    "outputPer1M": 1.6,
+    "maxOutputTokens": 200,
+    "minMeanScore": 4
+  },
+  "outputDirectory": "out"
+}

@@ -1,0 +1,49 @@
+{
+  "case": "whoami_via_interceptor_adjuster",
+  "deployment": "echo",
+  "stream": false,
+  "request_body": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "please !whoami"
+      }
+    ],
+    "stream": false
+  },
+  "status": 200,
+  "content_type": "application/json",
+  "response_header_names": [
+    "access-control-allow-origin",
+    "access-control-expose-headers",
+    "content-encoding",
+    "content-type",
+    "date",
+    "server",
+    "traceparent",
+    "transfer-encoding",
+    "x-dial-span-id",
+    "x-dial-trace-id"
+  ],
+  "body": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "content": "whoami 200 {\"roles\":[\"adjuster\"],\"project\":\"spike-adjuster\",\"userDisplayName\":\"spike-adjuster\"}",
+          "role": "assistant"
+        }
+      }
+    ],
+    "usage": {
+      "completion_tokens": 4,
+      "prompt_tokens": 3,
+      "total_tokens": 7
+    },
+    "id": "653c325e-5d83-49ae-a1eb-5e38e03a452e",
+    "created": 1795783469,
+    "object": "chat.completion",
+    "model": "echo"
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "case": "stream_toolcall",
+  "deployment": "echo",
+  "stream": true,
+  "request_body": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "please !toolcall"
+      }
+    ],
+    "stream": true
+  },
+  "status": 200,
+  "content_type": "text/event-stream; charset=utf-8",
+  "response_header_names": [
+    "access-control-allow-origin",
+    "access-control-expose-headers",
+    "content-encoding",
+    "content-type",
+    "date",
+    "server",
+    "traceparent",
+    "transfer-encoding",
+    "x-accel-buffering",
+    "x-dial-span-id",
+    "x-dial-trace-id"
+  ],
+  "sse_events": [
+    {
+      "id": "2822ada1-60df-425f-b9cf-d7669429610c",
+      "choices": [
+        {
+          "delta": {
+            "role": "assistant"
+          },
+          "finish_reason": null,
+          "index": 0
+        }
+      ],
+      "created": 1795783336,
+      "model": "echo",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "2822ada1-60df-425f-b9cf-d7669429610c",
+      "choices": [
+        {
+          "delta": {
+            "tool_calls": [
+              {
+                "index": 0,
+                "id": "call_1",
+                "function": {
+                  "arguments": "",
+                  "name": "lookup"
+                },
+                "type": "function"
+              }
+            ]
+          },
+          "finish_reason": null,
+          "index": 0
+        }
+      ],
+      "created": 1795783336,
+      "model": "echo",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "2822ada1-60df-425f-b9cf-d7669429610c",
+      "choices": [
+        {
+          "delta": {
+            "tool_calls": [
+              {
+                "index": 0,
+                "function": {
+                  "arguments": "{\"q\":\"x\"}"
+                }
+              }
+            ]
+          },
+          "finish_reason": null,
+          "index": 0
+        }
+      ],
+      "created": 1795783336,
+      "model": "echo",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "2822ada1-60df-425f-b9cf-d7669429610c",
+      "choices": [
+        {
+          "delta": {},
+          "finish_reason": "stop",
+          "index": 0
+        }
+      ],
+      "created": 1795783336,
+      "model": "echo",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "2822ada1-60df-425f-b9cf-d7669429610c",
+      "choices": [],
+      "created": 1795783336,
+      "model": "echo",
+      "object": "chat.completion.chunk",
+      "usage": {
+        "completion_tokens": 4,
+        "prompt_tokens": 3,
+        "total_tokens": 7
+      }
+    },
+    "[DONE]"
+  ]
+}

@@ -1,0 +1,37 @@
+bin/
+obj/
+*.user
+.vs/
+.vscode/
+.idea/
+
+# Runtime output, anchored to the root (curated evidence packs live in docs/evidence and are committed)
+/logs/
+/evidence/
+/.pilotgate/
+/data/.cache/
+
+# Python (DIAL guard and spike)
+.venv/
+__pycache__/
+*.egg-info/
+.pytest_cache/
+.hypothesis/
+*.pyc
+# Local secrets and captures for the DIAL stack (generated, never committed)
+dial/**/.env
+dial/spike/captures/
+dial/spike/pids.txt
+# DIAL stack: generated secrets and runtime data
+dial/stack/.env
+dial/stack/keys.json
+dial/stack/config/core-config.json
+dial/stack/data/
+
+# Production Watch output
+/watch/out/
+infra/dial/.keys.json
+infra/dial/.secrets.json
+
+# Personal launch material (LinkedIn video, post drafts): never published with the code
+launch/

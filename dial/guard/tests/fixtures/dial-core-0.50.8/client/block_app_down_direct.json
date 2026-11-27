@@ -1,0 +1,33 @@
+{
+  "case": "block_app_down_direct",
+  "deployment": "echo-direct",
+  "stream": false,
+  "request_body": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "app down direct"
+      }
+    ],
+    "stream": false
+  },
+  "status": 502,
+  "content_type": "application/json",
+  "response_header_names": [
+    "access-control-allow-origin",
+    "access-control-expose-headers",
+    "content-encoding",
+    "content-length",
+    "content-type",
+    "traceparent",
+    "x-dial-span-id",
+    "x-dial-trace-id"
+  ],
+  "body": {
+    "error": {
+      "message": "Failed to connect to upstream server",
+      "display_message": "Failed to connect to upstream server",
+      "code": "BAD_GATEWAY"
+    }
+  }
+}

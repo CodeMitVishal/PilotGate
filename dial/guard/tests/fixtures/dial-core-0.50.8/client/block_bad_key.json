@@ -1,0 +1,26 @@
+{
+  "case": "block_bad_key",
+  "deployment": "echo",
+  "stream": false,
+  "request_body": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "bad key"
+      }
+    ],
+    "stream": false
+  },
+  "status": 401,
+  "content_type": null,
+  "response_header_names": [
+    "access-control-allow-origin",
+    "access-control-expose-headers",
+    "content-encoding",
+    "content-length",
+    "traceparent",
+    "x-dial-span-id",
+    "x-dial-trace-id"
+  ],
+  "body_text": "Unknown api key"
+}

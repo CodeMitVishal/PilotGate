@@ -1,0 +1,117 @@
+{
+  "case": "chain_two_interceptors",
+  "deployment": "echo-global",
+  "stream": true,
+  "request_body": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "chain"
+      }
+    ],
+    "stream": true
+  },
+  "status": 200,
+  "content_type": "text/event-stream; charset=utf-8",
+  "response_header_names": [
+    "access-control-allow-origin",
+    "access-control-expose-headers",
+    "content-encoding",
+    "content-type",
+    "date",
+    "server",
+    "traceparent",
+    "transfer-encoding",
+    "x-accel-buffering",
+    "x-dial-span-id",
+    "x-dial-trace-id"
+  ],
+  "sse_events": [
+    {
+      "id": "5c5aa629-9027-4685-9459-0763de15f42e",
+      "choices": [
+        {
+          "delta": {
+            "role": "assistant"
+          },
+          "finish_reason": null,
+          "index": 0
+        }
+      ],
+      "created": 1795783472,
+      "model": "echo-global",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "5c5aa629-9027-4685-9459-0763de15f42e",
+      "choices": [
+        {
+          "delta": {
+            "content": "You "
+          },
+          "finish_reason": null,
+          "index": 0
+        }
+      ],
+      "created": 1795783472,
+      "model": "echo-global",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "5c5aa629-9027-4685-9459-0763de15f42e",
+      "choices": [
+        {
+          "delta": {
+            "content": "said: "
+          },
+          "finish_reason": null,
+          "index": 0
+        }
+      ],
+      "created": 1795783472,
+      "model": "echo-global",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "5c5aa629-9027-4685-9459-0763de15f42e",
+      "choices": [
+        {
+          "delta": {
+            "content": "chain"
+          },
+          "finish_reason": null,
+          "index": 0
+        }
+      ],
+      "created": 1795783472,
+      "model": "echo-global",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "5c5aa629-9027-4685-9459-0763de15f42e",
+      "choices": [
+        {
+          "delta": {},
+          "finish_reason": "stop",
+          "index": 0
+        }
+      ],
+      "created": 1795783472,
+      "model": "echo-global",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "5c5aa629-9027-4685-9459-0763de15f42e",
+      "choices": [],
+      "created": 1795783472,
+      "model": "echo-global",
+      "object": "chat.completion.chunk",
+      "usage": {
+        "completion_tokens": 4,
+        "prompt_tokens": 3,
+        "total_tokens": 7
+      }
+    },
+    "[DONE]"
+  ]
+}

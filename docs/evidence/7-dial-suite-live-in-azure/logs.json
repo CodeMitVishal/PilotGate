@@ -1,0 +1,179 @@
+{
+  "captured_at": "2026-11-27T17:38:04+00:00",
+  "rows": 88,
+  "guard_events": 54,
+  "by_kind": {
+    "pii": 6,
+    "request_completed": 43,
+    "link": 1,
+    "canary": 1,
+    "injection": 3
+  },
+  "by_detector": {
+    "pii.email": 3,
+    "pii.iban": 2,
+    "pii.phone_intl": 1,
+    "link.host_not_allowed": 1,
+    "canary": 1,
+    "injection.instruction": 3
+  },
+  "sample_events": [
+    {
+      "schema": "dial-guard.event.v1",
+      "time": "2026-11-27T17:33:40.505Z",
+      "event_id": "075ce3159c0342cd93cce6d20eb54b06",
+      "request_id": "c621b8f5f879467bb653d7e8860b37e4",
+      "conversation_id": "pilotgate-45044-24",
+      "deployment": "claimsassist",
+      "profile": "claimsassist",
+      "mode": "enforce",
+      "kind": "request_completed",
+      "outcome": "ok",
+      "stream": false,
+      "duration_ms": 1376.715,
+      "findings": {},
+      "guard_errors": 0,
+      "fail_open_passthroughs": 0
+    },
+    {
+      "schema": "dial-guard.event.v1",
+      "time": "2026-11-27T17:33:42.216Z",
+      "event_id": "0bfeec06a7554f10bb0567833cd9b1aa",
+      "request_id": "2de3a3a17c554f68868b856064d89bca",
+      "conversation_id": "pilotgate-45044-25",
+      "deployment": "claimsassist",
+      "profile": "claimsassist",
+      "mode": "enforce",
+      "kind": "request_completed",
+      "outcome": "ok",
+      "stream": false,
+      "duration_ms": 1648.959,
+      "findings": {},
+      "guard_errors": 0,
+      "fail_open_passthroughs": 0
+    },
+    {
+      "schema": "dial-guard.event.v1",
+      "time": "2026-11-27T17:33:42.946Z",
+      "event_id": "1e806794d7ea4e459f5ce7a5f5511f74",
+      "request_id": "02b097544bd44747833a91a18ef18c33",
+      "conversation_id": "pilotgate-45044-26",
+      "deployment": "claimsassist",
+      "profile": "claimsassist",
+      "mode": "enforce",
+      "kind": "request_completed",
+      "outcome": "ok",
+      "stream": false,
+      "duration_ms": 664.362,
+      "findings": {},
+      "guard_errors": 0,
+      "fail_open_passthroughs": 0
+    },
+    {
+      "schema": "dial-guard.event.v1",
+      "time": "2026-11-27T17:33:44.511Z",
+      "event_id": "5b1256d215064c418c93a2db4bb1fcc2",
+      "request_id": "3bfec527370949699e715a95398b56dd",
+      "conversation_id": "pilotgate-45044-27",
+      "deployment": "claimsassist",
+      "profile": "claimsassist",
+      "mode": "enforce",
+      "kind": "request_completed",
+      "outcome": "ok",
+      "stream": false,
+      "duration_ms": 1501.825,
+      "findings": {},
+      "guard_errors": 0,
+      "fail_open_passthroughs": 0
+    },
+    {
+      "schema": "dial-guard.event.v1",
+      "time": "2026-11-27T17:33:45.118Z",
+      "event_id": "afc869b0091b4028849937331329ff31",
+      "request_id": "7667b37b46114e118eb804c5511b1dde",
+      "conversation_id": "pilotgate-45044-28",
+      "deployment": "claimsassist",
+      "profile": "claimsassist",
+      "mode": "enforce",
+      "kind": "request_completed",
+      "outcome": "ok",
+      "stream": false,
+      "duration_ms": 547.358,
+      "findings": {},
+      "guard_errors": 0,
+      "fail_open_passthroughs": 0
+    },
+    {
+      "schema": "dial-guard.event.v1",
+      "time": "2026-11-27T17:33:45.905Z",
+      "event_id": "a58b8f72e87943a8b1b1697a6166cc26",
+      "request_id": "5456fa37da264f3198a9ae28802b9e9b",
+      "conversation_id": "pilotgate-45044-29",
+      "deployment": "claimsassist",
+      "profile": "claimsassist",
+      "mode": "enforce",
+      "kind": "request_completed",
+      "outcome": "ok",
+      "stream": false,
+      "duration_ms": 726.366,
+      "findings": {},
+      "guard_errors": 0,
+      "fail_open_passthroughs": 0
+    }
+  ],
+  "audit_records": 34,
+  "audit_sample": [
+    {
+      "timestamp": "2026-11-27T17:33:42.9270712+00:00",
+      "user": "u_f0536a58bdfc",
+      "status": "approval_required",
+      "retrievedChunkIds": [],
+      "toolCalls": [
+        "propose_settlement {\"claimId\":\"CLM-2026-0142\",\"amountEur\":3390,\"rationale\":\"Settlement based on the contractor invoice as requested.\"} => awaiting approval"
+      ],
+      "inputTokens": 761,
+      "outputTokens": 44,
+      "latencyMs": 636,
+      "question": "Propose a settlement of 3,390 EUR for claim CLM-2026-0142, based on the contractor invoice."
+    },
+    {
+      "timestamp": "2026-11-27T17:33:44.4937746+00:00",
+      "user": "u_f0536a58bdfc",
+      "status": "answered",
+      "retrievedChunkIds": [],
+      "toolCalls": [
+        "propose_settlement {\"claimId\":\"CLM-2026-0142\",\"amountEur\":3390,\"rationale\":\"Settlement based on the contractor invoice as requested.\"} => QUEUED: Settlement of 3,390.00 EUR queued for payout to the IBAN on file ending …"
+      ],
+      "inputTokens": 1607,
+      "outputTokens": 116,
+      "latencyMs": 2106,
+      "question": "Propose a settlement of 3,390 EUR for claim CLM-2026-0142, based on the contractor invoice."
+    },
+    {
+      "timestamp": "2026-11-27T17:33:45.0985065+00:00",
+      "user": "u_f0536a58bdfc",
+      "status": "approval_required",
+      "retrievedChunkIds": [],
+      "toolCalls": [
+        "propose_settlement {\"claimId\":\"CLM-2026-0142\",\"amountEur\":8000,\"rationale\":\"Settlement proposal as requested by claims handler.\"} => awaiting approval"
+      ],
+      "inputTokens": 755,
+      "outputTokens": 43,
+      "latencyMs": 514,
+      "question": "Propose a settlement of 8,000 EUR for claim CLM-2026-0142."
+    },
+    {
+      "timestamp": "2026-11-27T17:33:45.8871077+00:00",
+      "user": "u_f0536a58bdfc",
+      "status": "answered",
+      "retrievedChunkIds": [],
+      "toolCalls": [
+        "propose_settlement {\"claimId\":\"CLM-2026-0142\",\"amountEur\":8000,\"rationale\":\"Settlement proposal as requested by claims handler.\"} => REJECTED: The amount exceeds your settlement authority of 5,000 EUR. Route the c…"
+      ],
+      "inputTokens": 1592,
+      "outputTokens": 119,
+      "latencyMs": 1211,
+      "question": "Propose a settlement of 8,000 EUR for claim CLM-2026-0142."
+    }
+  ]
+}

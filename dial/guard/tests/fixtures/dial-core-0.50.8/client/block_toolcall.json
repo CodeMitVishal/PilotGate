@@ -1,0 +1,59 @@
+{
+  "case": "block_toolcall",
+  "deployment": "echo",
+  "stream": false,
+  "request_body": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "please !toolcall"
+      }
+    ],
+    "stream": false
+  },
+  "status": 200,
+  "content_type": "application/json",
+  "response_header_names": [
+    "access-control-allow-origin",
+    "access-control-expose-headers",
+    "content-encoding",
+    "content-type",
+    "date",
+    "server",
+    "traceparent",
+    "transfer-encoding",
+    "x-dial-span-id",
+    "x-dial-trace-id"
+  ],
+  "body": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "content": null,
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "id": "call_1",
+              "function": {
+                "arguments": "{\"q\":\"x\"}",
+                "name": "lookup"
+              },
+              "type": "function"
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "completion_tokens": 4,
+      "prompt_tokens": 3,
+      "total_tokens": 7
+    },
+    "id": "7b34662a-4472-4a0e-b2c7-d6b1b981ad6c",
+    "created": 1795783336,
+    "object": "chat.completion",
+    "model": "echo"
+  }
+}

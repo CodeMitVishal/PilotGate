@@ -1,0 +1,156 @@
+{
+  "captured_at": "2026-11-27T17:30:18+00:00",
+  "resource_group": "rg-pilotgate-demo",
+  "apps": [
+    {
+      "allowInsecure": true,
+      "cpu": [
+        0.25
+      ],
+      "external": false,
+      "fqdn": "ca-pgdial-guard.internal.demoenv-00000001.swedencentral.azurecontainerapps.io",
+      "identity": "UserAssigned",
+      "images": [
+        "dial-guard:1.0.0"
+      ],
+      "maxReplicas": 3,
+      "memory": [
+        "0.5Gi"
+      ],
+      "minReplicas": 1,
+      "name": "ca-pgdial-guard",
+      "provisioning": "Succeeded",
+      "running": "Running",
+      "secrets": null,
+      "targetPort": 8000,
+      "replicas": 1
+    },
+    {
+      "allowInsecure": true,
+      "cpu": [
+        0.25
+      ],
+      "external": false,
+      "fqdn": "ca-pgdial-mockmodel.internal.demoenv-00000001.swedencentral.azurecontainerapps.io",
+      "identity": "UserAssigned",
+      "images": [
+        "dial-mockmodel:1.0.0"
+      ],
+      "maxReplicas": 1,
+      "memory": [
+        "0.5Gi"
+      ],
+      "minReplicas": 0,
+      "name": "ca-pgdial-mockmodel",
+      "provisioning": "Succeeded",
+      "running": "Running",
+      "secrets": null,
+      "targetPort": 7001,
+      "replicas": 1
+    },
+    {
+      "allowInsecure": true,
+      "cpu": [
+        0.5
+      ],
+      "external": false,
+      "fqdn": "ca-pgdial-claimsassist.internal.demoenv-00000001.swedencentral.azurecontainerapps.io",
+      "identity": "UserAssigned",
+      "images": [
+        "claimsassist:1.0.0"
+      ],
+      "maxReplicas": 1,
+      "memory": [
+        "1Gi"
+      ],
+      "minReplicas": 1,
+      "name": "ca-pgdial-claimsassist",
+      "provisioning": "Succeeded",
+      "running": "Running",
+      "secrets": [
+        "pseudonym-key"
+      ],
+      "targetPort": 8080,
+      "replicas": 1
+    },
+    {
+      "allowInsecure": false,
+      "cpu": [
+        0.75,
+        0.25
+      ],
+      "external": true,
+      "fqdn": "ca-pgdial-core.demoenv-00000001.swedencentral.azurecontainerapps.io",
+      "identity": "UserAssigned",
+      "images": [
+        "epam/ai-dial-core@sha256:2c5b3a7e2fa7b447a6e0d22dc98b2980f340d6cb5aa6c2fb4b99179b02810934",
+        "library/redis@sha256:c8bb255c3559b3e458766db810aa7b3c7af1235b204cfdb304e79ff388fe1a5a"
+      ],
+      "maxReplicas": 1,
+      "memory": [
+        "1.5Gi",
+        "0.5Gi"
+      ],
+      "minReplicas": 1,
+      "name": "ca-pgdial-core",
+      "provisioning": "Succeeded",
+      "running": "Running",
+      "secrets": [
+        "core-settings",
+        "core-config",
+        "encryption-secret",
+        "encryption-key"
+      ],
+      "targetPort": 8080,
+      "replicas": 1
+    }
+  ],
+  "environments": [
+    {
+      "defaultDomain": "demoenv-00000001.swedencentral.azurecontainerapps.io",
+      "location": "Sweden Central",
+      "logs": "azure-monitor",
+      "name": "cae-pgdial-demo001",
+      "peerEncryption": true,
+      "workloadProfiles": [
+        "Consumption"
+      ]
+    }
+  ],
+  "registries": [
+    {
+      "adminUserEnabled": false,
+      "anonymousPull": false,
+      "name": "crpgdialdemo001",
+      "sku": "Basic",
+      "repositories": [
+        "claimsassist",
+        "dial-guard",
+        "dial-mockmodel",
+        "epam/ai-dial-core",
+        "library/redis"
+      ]
+    }
+  ],
+  "identity": {
+    "name": "id-pgdial-apps",
+    "roles": [
+      {
+        "role": "Cognitive Services OpenAI User",
+        "scope": "accounts/oai-pilotgate-demo001"
+      },
+      {
+        "role": "AcrPull",
+        "scope": "registries/crpgdialdemo001"
+      }
+    ]
+  },
+  "workspaces": [
+    {
+      "localAuthDisabled": true,
+      "name": "log-pgdial-demo001",
+      "retentionInDays": 30,
+      "sku": "PerGB2018"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 330" width="1200" height="330" role="img" aria-labelledby="t d" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+<title id="t">Handler time saved per month: a projection, not a measurement</title>
+<desc id="d">Expected: 700 h a month, worth EUR 40,600; Conservative (lower bound of a 95% interval): 244 h a month, worth EUR 14,124. Projection based on a sponsor estimate.</desc>
+<rect width="1200" height="330" rx="12" fill="#1a1a19"/>
+<text x="32" y="44" font-size="20" font-weight="600" fill="#f0efec" text-anchor="start">Handler time saved per month: a projection, not a measurement</text>
+<text x="32" y="70" font-size="14" font-weight="400" fill="#c3c2b7" text-anchor="start">120 claims handlers, 6,000 policy lookups a month, EUR 58 an hour; model cost about $6.64 a month</text>
+<line x1="360.0" y1="100" x2="360.0" y2="220" stroke="#383835" stroke-width="1"/>
+<text x="360.0" y="240" font-size="12" font-weight="400" fill="#898781" text-anchor="middle">0 h</text>
+<line x1="520.0" y1="100" x2="520.0" y2="220" stroke="#2c2c2a" stroke-width="1"/>
+<text x="520.0" y="240" font-size="12" font-weight="400" fill="#898781" text-anchor="middle">200 h</text>
+<line x1="680.0" y1="100" x2="680.0" y2="220" stroke="#2c2c2a" stroke-width="1"/>
+<text x="680.0" y="240" font-size="12" font-weight="400" fill="#898781" text-anchor="middle">400 h</text>
+<line x1="840.0" y1="100" x2="840.0" y2="220" stroke="#2c2c2a" stroke-width="1"/>
+<text x="840.0" y="240" font-size="12" font-weight="400" fill="#898781" text-anchor="middle">600 h</text>
+<line x1="1000.0" y1="100" x2="1000.0" y2="220" stroke="#2c2c2a" stroke-width="1"/>
+<text x="1000.0" y="240" font-size="12" font-weight="400" fill="#898781" text-anchor="middle">800 h</text>
+<text x="346" y="139" font-size="13" font-weight="400" fill="#c3c2b7" text-anchor="end">Expected</text>
+<path d="M360.0,122 H916.0 A4,4 0 0 1 920.0,126 V142 A4,4 0 0 1 916.0,146 H360.0 Z" fill="#3987e5"/>
+<text x="930.0" y="139" font-size="13" font-weight="600" fill="#f0efec" text-anchor="start">700 h a month, worth EUR 40,600</text>
+<text x="346" y="191" font-size="13" font-weight="400" fill="#c3c2b7" text-anchor="end">Conservative (lower bound of a 95% interval)</text>
+<path d="M360.0,174 H550.8 A4,4 0 0 1 554.8,178 V194 A4,4 0 0 1 550.8,198 H360.0 Z" fill="#3987e5"/>
+<text x="564.8" y="191" font-size="13" font-weight="600" fill="#f0efec" text-anchor="start">244 h a month, worth EUR 14,124</text>
+<text x="32" y="284" font-size="12" font-weight="400" fill="#898781" text-anchor="start">Assumes a lookup takes 9 minutes today and 2 with the assistant: the sponsor's estimate. The conservative row counts only</text>
+<text x="32" y="302" font-size="12" font-weight="400" fill="#898781" text-anchor="start">the lower bound of task success (81% at 95% confidence, from 16 of 16 correct). Replace with a two-week time study first.</text>
+</svg>

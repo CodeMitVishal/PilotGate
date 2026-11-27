@@ -1,0 +1,21 @@
+# Build context for src/ClaimsAssist.Api/Dockerfile (repository root): only sources and synthetic data.
+.git
+**/bin
+**/obj
+**/.venv
+**/__pycache__
+**/node_modules
+data/.cache
+logs
+evidence
+watch/out
+.pilotgate
+dial
+docs
+tests
+gate
+infra
+scripts
+pipelines
+demo
+**/*.user

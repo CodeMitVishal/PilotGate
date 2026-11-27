@@ -1,0 +1,117 @@
+{
+  "case": "stream_echo",
+  "deployment": "echo",
+  "stream": true,
+  "request_body": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "hello stream"
+      }
+    ],
+    "stream": true
+  },
+  "status": 200,
+  "content_type": "text/event-stream; charset=utf-8",
+  "response_header_names": [
+    "access-control-allow-origin",
+    "access-control-expose-headers",
+    "content-encoding",
+    "content-type",
+    "date",
+    "server",
+    "traceparent",
+    "transfer-encoding",
+    "x-accel-buffering",
+    "x-dial-span-id",
+    "x-dial-trace-id"
+  ],
+  "sse_events": [
+    {
+      "id": "93090a92-4274-4435-b526-83285a50ff6a",
+      "choices": [
+        {
+          "delta": {
+            "role": "assistant"
+          },
+          "finish_reason": null,
+          "index": 0
+        }
+      ],
+      "created": 1795783334,
+      "model": "echo",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "93090a92-4274-4435-b526-83285a50ff6a",
+      "choices": [
+        {
+          "delta": {
+            "content": "You "
+          },
+          "finish_reason": null,
+          "index": 0
+        }
+      ],
+      "created": 1795783334,
+      "model": "echo",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "93090a92-4274-4435-b526-83285a50ff6a",
+      "choices": [
+        {
+          "delta": {
+            "content": "said: "
+          },
+          "finish_reason": null,
+          "index": 0
+        }
+      ],
+      "created": 1795783334,
+      "model": "echo",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "93090a92-4274-4435-b526-83285a50ff6a",
+      "choices": [
+        {
+          "delta": {
+            "content": "hello stream"
+          },
+          "finish_reason": null,
+          "index": 0
+        }
+      ],
+      "created": 1795783334,
+      "model": "echo",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "93090a92-4274-4435-b526-83285a50ff6a",
+      "choices": [
+        {
+          "delta": {},
+          "finish_reason": "stop",
+          "index": 0
+        }
+      ],
+      "created": 1795783334,
+      "model": "echo",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "93090a92-4274-4435-b526-83285a50ff6a",
+      "choices": [],
+      "created": 1795783334,
+      "model": "echo",
+      "object": "chat.completion.chunk",
+      "usage": {
+        "completion_tokens": 4,
+        "prompt_tokens": 3,
+        "total_tokens": 7
+      }
+    },
+    "[DONE]"
+  ]
+}

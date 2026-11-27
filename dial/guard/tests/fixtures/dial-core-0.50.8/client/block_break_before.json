@@ -1,0 +1,35 @@
+{
+  "case": "block_break_before",
+  "deployment": "echo",
+  "stream": false,
+  "request_body": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "please !break-before"
+      }
+    ],
+    "stream": false
+  },
+  "status": 500,
+  "content_type": "application/json",
+  "response_header_names": [
+    "access-control-allow-origin",
+    "access-control-expose-headers",
+    "content-encoding",
+    "content-type",
+    "date",
+    "server",
+    "traceparent",
+    "transfer-encoding",
+    "x-dial-span-id",
+    "x-dial-trace-id"
+  ],
+  "body": {
+    "error": {
+      "message": "spike interceptor failed before calling upstream",
+      "type": "internal_server_error",
+      "code": "500"
+    }
+  }
+}

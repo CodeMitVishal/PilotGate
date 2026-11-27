@@ -1,0 +1,13 @@
+﻿started 2026-11-27T18:38:28.6464666+01:00
+Deleting the DIAL suite resources (prefix 'pgdial') from rg-pilotgate-demo ...
+  delete rg-pilotgate-demo/providers/Microsoft.App/containerApps/ca-pgdial-guard
+  delete rg-pilotgate-demo/providers/Microsoft.App/containerApps/ca-pgdial-mockmodel
+  delete rg-pilotgate-demo/providers/Microsoft.App/containerApps/ca-pgdial-core
+  delete rg-pilotgate-demo/providers/Microsoft.App/containerApps/ca-pgdial-claimsassist
+  delete rg-pilotgate-demo/providers/Microsoft.App/managedEnvironments/cae-pgdial-demo001
+  delete rg-pilotgate-demo/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id-pgdial-apps
+  delete rg-pilotgate-demo/providers/Microsoft.OperationalInsights/workspaces/log-pgdial-demo001
+  delete rg-pilotgate-demo/providers/Microsoft.ContainerRegistry/registries/crpgdialdemo001
+Done. The Azure OpenAI account and the CI identity were not touched. The local secret files stay;
+delete C:\Repo\PilotGate\infra\dial\.keys.json and C:\Repo\PilotGate\infra\dial\.secrets.json to rotate everything on the next deployment.
+exit=0 finished 2026-11-27T19:04:59.0812368+01:00

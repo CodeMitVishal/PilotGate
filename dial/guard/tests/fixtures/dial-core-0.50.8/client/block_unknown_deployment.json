@@ -1,0 +1,26 @@
+{
+  "case": "block_unknown_deployment",
+  "deployment": "nope",
+  "stream": false,
+  "request_body": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "unknown"
+      }
+    ],
+    "stream": false
+  },
+  "status": 404,
+  "content_type": null,
+  "response_header_names": [
+    "access-control-allow-origin",
+    "access-control-expose-headers",
+    "content-encoding",
+    "content-length",
+    "traceparent",
+    "x-dial-span-id",
+    "x-dial-trace-id"
+  ],
+  "body_text": "Unknown deployment: nope"
+}

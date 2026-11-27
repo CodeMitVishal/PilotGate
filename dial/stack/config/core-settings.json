@@ -1,0 +1,13 @@
+{
+  "server": {
+    "port": 8080
+  },
+  "identityProviders": {
+    "api-keys-only": {
+      "jwksUrl": "http://127.0.0.1:9/no-jwks",
+      "rolePath": "roles",
+      "issuerPattern": "^https://issuer\\.invalid/accept-no-tokens$",
+      "audience": "accept-no-tokens"
+    }
+  }
+}

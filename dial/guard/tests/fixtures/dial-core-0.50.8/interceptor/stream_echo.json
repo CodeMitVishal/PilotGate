@@ -1,0 +1,122 @@
+{
+  "case": "stream_echo",
+  "deployment_id": "spike-logger",
+  "upstream_deployment_id": "echo",
+  "api_key_present": true,
+  "authorization_present": false,
+  "headers": {
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "user-agent": "python-httpx/0.29.0",
+    "content-type": "application/json",
+    "x-conversation-id": "conv-stream_echo",
+    "x-dial-deployment-id": "echo",
+    "content-length": "140",
+    "host": "<host>",
+    "traceparent": "<volatile>"
+  },
+  "configuration": {
+    "mode": "from-defaults"
+  },
+  "body": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "hello stream"
+      }
+    ],
+    "stream": true,
+    "custom_fields": {
+      "interceptor_configuration": {
+        "mode": "from-defaults"
+      }
+    }
+  },
+  "response_chunks": [
+    {
+      "id": "echo-1",
+      "choices": [
+        {
+          "delta": {
+            "role": "assistant"
+          },
+          "finish_reason": null,
+          "index": 0
+        }
+      ],
+      "created": 1,
+      "model": "echo",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "echo-1",
+      "choices": [
+        {
+          "delta": {
+            "content": "You "
+          },
+          "finish_reason": null,
+          "index": 0
+        }
+      ],
+      "created": 1,
+      "model": "echo",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "echo-1",
+      "choices": [
+        {
+          "delta": {
+            "content": "said: "
+          },
+          "finish_reason": null,
+          "index": 0
+        }
+      ],
+      "created": 1,
+      "model": "echo",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "echo-1",
+      "choices": [
+        {
+          "delta": {
+            "content": "hello stream"
+          },
+          "finish_reason": null,
+          "index": 0
+        }
+      ],
+      "created": 1,
+      "model": "echo",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "echo-1",
+      "choices": [
+        {
+          "delta": {},
+          "finish_reason": "stop",
+          "index": 0
+        }
+      ],
+      "created": 1,
+      "model": "echo",
+      "object": "chat.completion.chunk"
+    },
+    {
+      "id": "echo-1",
+      "choices": [],
+      "created": 1,
+      "model": "echo",
+      "object": "chat.completion.chunk",
+      "usage": {
+        "completion_tokens": 4,
+        "prompt_tokens": 3,
+        "total_tokens": 7
+      }
+    }
+  ]
+}

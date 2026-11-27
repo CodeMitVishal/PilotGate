@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ClaimsAssist.Api/ClaimsAssist.Api.csproj" />
+    <Project Path="src/ClaimsAssist.Core/ClaimsAssist.Core.csproj" />
+    <Project Path="src/PilotGate/PilotGate.csproj" />
+    <Project Path="src/ProductionWatch/ProductionWatch.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ClaimsAssist.Tests/ClaimsAssist.Tests.csproj" />
+    <Project Path="tests/PilotGate.Tests/PilotGate.Tests.csproj" />
+    <Project Path="tests/ProductionWatch.Tests/ProductionWatch.Tests.csproj" />
+  </Folder>
+</Solution>

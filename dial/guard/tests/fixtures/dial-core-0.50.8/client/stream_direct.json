@@ -1,0 +1,118 @@
+{
+  "case": "stream_direct",
+  "deployment": "echo-direct",
+  "stream": true,
+  "request_body": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "hello direct stream"
+      }
+    ],
+    "stream": true
+  },
+  "status": 200,
+  "content_type": "text/event-stream; charset=utf-8",
+  "response_header_names": [
+    "access-control-allow-origin",
+    "access-control-expose-headers",
+    "content-encoding",
+    "content-type",
+    "date",
+    "server",
+    "traceparent",
+    "transfer-encoding",
+    "x-accel-buffering",
+    "x-dial-span-id",
+    "x-dial-trace-id",
+    "x-upstream-attempts"
+  ],
+  "sse_events": [
+    {
+      "id": "echo-1",
+      "object": "chat.completion.chunk",
+      "created": 1,
+      "model": "echo-direct",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "role": "assistant"
+          },
+          "finish_reason": null
+        }
+      ]
+    },
+    {
+      "id": "echo-1",
+      "object": "chat.completion.chunk",
+      "created": 1,
+      "model": "echo-direct",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "You "
+          },
+          "finish_reason": null
+        }
+      ]
+    },
+    {
+      "id": "echo-1",
+      "object": "chat.completion.chunk",
+      "created": 1,
+      "model": "echo-direct",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "said: "
+          },
+          "finish_reason": null
+        }
+      ]
+    },
+    {
+      "id": "echo-1",
+      "object": "chat.completion.chunk",
+      "created": 1,
+      "model": "echo-direct",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {
+            "content": "hello direct stream"
+          },
+          "finish_reason": null
+        }
+      ]
+    },
+    {
+      "id": "echo-1",
+      "object": "chat.completion.chunk",
+      "created": 1,
+      "model": "echo-direct",
+      "choices": [
+        {
+          "index": 0,
+          "delta": {},
+          "finish_reason": "stop"
+        }
+      ]
+    },
+    {
+      "id": "echo-1",
+      "object": "chat.completion.chunk",
+      "created": 1,
+      "model": "echo-direct",
+      "choices": [],
+      "usage": {
+        "prompt_tokens": 3,
+        "completion_tokens": 4,
+        "total_tokens": 7
+      }
+    },
+    "[DONE]"
+  ]
+}

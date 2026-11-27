@@ -1,0 +1,73 @@
+{
+  "applications": {
+    "echo": {
+      "endpoint": "http://host.docker.internal:7001/openai/deployments/echo/chat/completions",
+      "displayName": "Echo",
+      "interceptors": [
+        "spike-logger"
+      ]
+    },
+    "echo-direct": {
+      "endpoint": "http://host.docker.internal:7001/openai/deployments/echo-direct/chat/completions",
+      "displayName": "Echo without interceptor"
+    },
+    "echo-nodefaults": {
+      "endpoint": "http://host.docker.internal:7001/openai/deployments/echo-nodefaults/chat/completions",
+      "displayName": "Echo, interceptor without defaults",
+      "interceptors": [
+        "spike-nodefaults"
+      ]
+    },
+    "echo-global": {
+      "endpoint": "http://host.docker.internal:7001/openai/deployments/echo-global/chat/completions",
+      "displayName": "Echo, two interceptors",
+      "interceptors": [
+        "spike-logger",
+        "spike-nodefaults"
+      ]
+    }
+  },
+  "interceptors": {
+    "spike-logger": {
+      "endpoint": "http://host.docker.internal:7002/openai/deployments/spike-logger/chat/completions",
+      "defaults": {
+        "custom_fields": {
+          "interceptor_configuration": {
+            "mode": "from-defaults"
+          }
+        }
+      }
+    },
+    "spike-nodefaults": {
+      "endpoint": "http://host.docker.internal:7002/openai/deployments/spike-logger/chat/completions"
+    }
+  },
+  "keys": {
+    "spike_key_default": {
+      "project": "spike",
+      "role": "default"
+    },
+    "spike_key_adjuster": {
+      "project": "spike-adjuster",
+      "role": "adjuster"
+    }
+  },
+  "roles": {
+    "default": {
+      "limits": {
+        "echo": {},
+        "echo-direct": {},
+        "echo-nodefaults": {},
+        "echo-global": {}
+      }
+    },
+    "adjuster": {
+      "limits": {
+        "echo": {},
+        "echo-direct": {},
+        "echo-nodefaults": {},
+        "echo-global": {}
+      }
+    }
+  }
+}

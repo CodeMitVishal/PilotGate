@@ -1,0 +1,65 @@
+{
+  "case": "block_attach",
+  "deployment": "echo",
+  "stream": false,
+  "request_body": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "please !attach"
+      }
+    ],
+    "stream": false
+  },
+  "status": 200,
+  "content_type": "application/json",
+  "response_header_names": [
+    "access-control-allow-origin",
+    "access-control-expose-headers",
+    "content-encoding",
+    "content-type",
+    "date",
+    "server",
+    "traceparent",
+    "transfer-encoding",
+    "x-dial-span-id",
+    "x-dial-trace-id"
+  ],
+  "body": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "content": "You said: please !attach",
+          "role": "assistant",
+          "custom_content": {
+            "attachments": [
+              {
+                "type": "text/markdown",
+                "title": "Doc",
+                "data": "attached body"
+              }
+            ],
+            "stages": [
+              {
+                "name": "Search",
+                "status": "completed",
+                "content": "stage body"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "usage": {
+      "completion_tokens": 4,
+      "prompt_tokens": 3,
+      "total_tokens": 7
+    },
+    "id": "9ddd69d8-a126-4680-87c3-d53b7a62b031",
+    "created": 1795783337,
+    "object": "chat.completion",
+    "model": "echo"
+  }
+}

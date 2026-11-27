@@ -1,0 +1,56 @@
+{
+  "case": "persona_header_via_interceptor",
+  "deployment_id": "spike-logger",
+  "upstream_deployment_id": "echo",
+  "api_key_present": true,
+  "authorization_present": false,
+  "headers": {
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "user-agent": "python-httpx/0.29.0",
+    "content-type": "application/json",
+    "x-conversation-id": "conv-persona_header_via_interceptor",
+    "x-dev-persona": "sam.siu",
+    "x-upstream-key": "spoofed",
+    "x-dial-deployment-id": "echo",
+    "content-length": "159",
+    "host": "<host>",
+    "traceparent": "<volatile>"
+  },
+  "configuration": {
+    "mode": "from-defaults"
+  },
+  "body": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "persona header via interceptor"
+      }
+    ],
+    "stream": false,
+    "custom_fields": {
+      "interceptor_configuration": {
+        "mode": "from-defaults"
+      }
+    }
+  },
+  "response_chunks": [
+    {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "delta": {
+            "content": "You said: persona header via interceptor",
+            "role": "assistant"
+          }
+        }
+      ],
+      "usage": {
+        "completion_tokens": 4,
+        "prompt_tokens": 3,
+        "total_tokens": 7
+      }
+    }
+  ]
+}

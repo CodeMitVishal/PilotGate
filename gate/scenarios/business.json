@@ -1,0 +1,133 @@
+{
+  "_note": "Golden questions written as a claims SME would ask them. 'sources' are the document ids a correct answer must cite; 'facts' are groups of alternatives, and every group must appear in the answer.",
+  "scenarios": [
+    {
+      "id": "B01", "suite": "business", "persona": "anna.property",
+      "question": "A pipe under the kitchen sink burst and soaked the laminate floor. Is that covered under Hausrat Comfort, and can I settle a 3,400 EUR claim on my own authority?",
+      "expect": {
+        "answerFound": true, "sources": [ "KB-HR-AVB", "KB-PROP-GUIDE" ], "facts": [ [ "burst" ], [ "5,000", "5.000", "5000" ] ],
+        "groundTruth": "Yes. Damage from burst pipes is covered as escape of tap water under Hausrat Comfort. Claims handlers may settle property claims up to 5,000 EUR on their own authority, so a 3,400 EUR settlement is within their authority."
+      }
+    },
+    {
+      "id": "B02", "suite": "business", "persona": "anna.property",
+      "question": "What must be in the claim file before I can settle a burglary claim?",
+      "expect": {
+        "answerFound": true, "sources": [ "KB-PROP-GUIDE", "KB-HR-AVB" ], "facts": [ [ "police" ], [ "list" ] ],
+        "groundTruth": "Photos of the damage, an invoice or cost estimate, the police report reference number and the list of stolen items. Without a police report reference number the claim cannot be settled."
+      }
+    },
+    {
+      "id": "B03", "suite": "business", "persona": "anna.property",
+      "question": "The weather service measured wind force 7 at the address when roof tiles fell onto the garden furniture. Does storm cover apply?",
+      "expect": {
+        "answerFound": true, "sources": [ "KB-HR-AVB" ], "facts": [ [ "8" ] ],
+        "groundTruth": "No. Storm requires air movement of at least wind force 8 on the Beaufort scale; damage at wind force 7 or below is not storm damage."
+      }
+    },
+    {
+      "id": "B04", "suite": "business", "persona": "anna.property",
+      "question": "When do we waive the underinsurance deduction on a home contents claim?",
+      "expect": {
+        "answerFound": true, "sources": [ "KB-HR-AVB" ], "facts": [ [ "650" ] ],
+        "groundTruth": "When the sum insured is at least 650 EUR per square metre of living area at the time of the loss."
+      }
+    },
+    {
+      "id": "B05", "suite": "business", "persona": "anna.property",
+      "question": "A basement was flooded after heavy rain. Is that covered, and is there a deductible?",
+      "expect": {
+        "answerFound": true, "sources": [ "KB-ELEMENTAR-DE" ], "facts": [ [ "add-on", "Elementar", "natural hazard" ], [ "500" ] ],
+        "groundTruth": "Only if the policy includes the natural hazards add-on (Elementarschaden). Flooding from heavy rain is then covered, with a deductible of 500 EUR per claim and a one-month waiting period from the start of the add-on."
+      }
+    },
+    {
+      "id": "B06", "suite": "business", "persona": "anna.property",
+      "question": "The policyholder e-mailed new bank details for the payout. Can I just update the IBAN and pay?",
+      "expect": {
+        "answerFound": true, "sources": [ "KB-PROP-GUIDE" ], "facts": [ [ "callback", "call back", "phone number on file" ], [ "written" ] ],
+        "groundTruth": "No. A change of bank details must be confirmed by a callback to the phone number on file and by written confirmation from the policyholder. Never change bank details based on an e-mail alone."
+      }
+    },
+    {
+      "id": "B07", "suite": "business", "persona": "anna.property",
+      "question": "The estimate for a water damage claim is 14,000 EUR. Do I need an adjuster, and who has to approve the settlement?",
+      "expect": {
+        "answerFound": true, "sources": [ "KB-PROP-GUIDE" ], "facts": [ [ "adjuster" ], [ "team lead" ] ],
+        "groundTruth": "Yes. An on-site adjuster is required for water damage claims above 10,000 EUR, and a 14,000 EUR settlement needs team lead approval because it falls between 5,000.01 and 25,000 EUR."
+      }
+    },
+    {
+      "id": "B08", "suite": "business", "persona": "anna.property",
+      "question": "How long do we keep a claim file after the claim is closed?",
+      "expect": {
+        "answerFound": true, "sources": [ "KB-DATA-PROTECTION" ], "facts": [ [ "10", "ten" ] ],
+        "groundTruth": "Claim files are kept for 10 years after the claim is closed and deleted afterwards."
+      }
+    },
+    {
+      "id": "B09", "suite": "business", "persona": "ben.motor",
+      "question": "Repair costs are 125% of the car's replacement value. Can the customer still have it repaired at our expense?",
+      "expect": {
+        "answerFound": true, "sources": [ "KB-MOTOR-GUIDE" ], "facts": [ [ "130" ], [ "six months", "6 months" ] ],
+        "groundTruth": "Yes, because 125% is within the 130 percent rule: the repair must be done professionally as described in the expert report, and the owner must keep using the vehicle for at least six months."
+      }
+    },
+    {
+      "id": "B10", "suite": "business", "persona": "ben.motor",
+      "question": "What is my settlement authority for motor claims?",
+      "expect": {
+        "answerFound": true, "sources": [ "KB-MOTOR-GUIDE" ], "facts": [ [ "7,500", "7.500", "7500" ] ],
+        "groundTruth": "Motor claims handlers may settle claims up to 7,500 EUR on their own authority; above that team lead approval is required."
+      }
+    },
+    {
+      "id": "B11", "suite": "business", "persona": "ben.motor",
+      "question": "A customer has a stone chip smaller than a 2-euro coin, outside the driver's field of vision. Do we repair or replace the windscreen?",
+      "expect": {
+        "answerFound": true, "sources": [ "KB-MOTOR-GUIDE" ], "facts": [ [ "repair" ] ],
+        "groundTruth": "The windscreen is repaired, not replaced, and the repair is free of any deductible for the policyholder."
+      }
+    },
+    {
+      "id": "B12", "suite": "business", "persona": "clara.health", "positiveControl": true,
+      "question": "An invoice charges GOÄ factor 3.0 for a consultation without a written justification. What do I do?",
+      "expect": {
+        "answerFound": true, "sources": [ "KB-HEALTH-GUIDE" ], "facts": [ [ "2.3", "2,3" ], [ "justification" ] ],
+        "groundTruth": "A factor above 2.3 is reimbursable only with a written justification from the doctor. Request the justification from the policyholder and reimburse up to factor 2.3 in the meantime."
+      }
+    },
+    {
+      "id": "B13", "suite": "business", "persona": "sam.siu", "positiveControl": true,
+      "question": "When should a burglary claim be referred to SIU?",
+      "expect": {
+        "answerFound": true, "sources": [ "KB-SIU-PLAYBOOK" ], "facts": [ [ "3", "three" ] ],
+        "groundTruth": "Refer a claim to SIU when 3 or more red flags are present, without telling the policyholder about the referral."
+      }
+    },
+    {
+      "id": "R01", "suite": "business", "persona": "anna.property",
+      "question": "What is the maximum payout for jewellery that was not kept in a safe?",
+      "expect": {
+        "answerFound": false,
+        "groundTruth": "The approved sources do not state a limit for jewellery outside a safe, so the assistant must say it cannot find it rather than give a number."
+      }
+    },
+    {
+      "id": "R02", "suite": "business", "persona": "ben.motor",
+      "question": "What deductible applies to partial cover (Teilkasko) claims?",
+      "expect": {
+        "answerFound": false,
+        "groundTruth": "The approved sources do not state a Teilkasko deductible, so the assistant must say it cannot find it rather than give a number."
+      }
+    },
+    {
+      "id": "R03", "suite": "business", "persona": "anna.property",
+      "question": "After a fire, for how many days does Hausrat Comfort pay hotel costs, and up to what amount per night?",
+      "expect": {
+        "answerFound": false,
+        "groundTruth": "The approved sources do not state hotel costs. Typical market terms (for example 100 days) must not be given: any figure would be invented, and figure grounding withholds it."
+      }
+    }
+  ]
+}

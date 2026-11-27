@@ -1,0 +1,64 @@
+{
+  "case": "block_toolcall",
+  "deployment_id": "spike-logger",
+  "upstream_deployment_id": "echo",
+  "api_key_present": true,
+  "authorization_present": false,
+  "headers": {
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "user-agent": "python-httpx/0.29.0",
+    "content-type": "application/json",
+    "x-conversation-id": "conv-block_toolcall",
+    "x-dial-deployment-id": "echo",
+    "content-length": "145",
+    "host": "<host>",
+    "traceparent": "<volatile>"
+  },
+  "configuration": {
+    "mode": "from-defaults"
+  },
+  "body": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "please !toolcall"
+      }
+    ],
+    "stream": false,
+    "custom_fields": {
+      "interceptor_configuration": {
+        "mode": "from-defaults"
+      }
+    }
+  },
+  "response_chunks": [
+    {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "delta": {
+            "content": null,
+            "role": "assistant",
+            "tool_calls": [
+              {
+                "id": "call_1",
+                "function": {
+                  "arguments": "{\"q\":\"x\"}",
+                  "name": "lookup"
+                },
+                "type": "function"
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "completion_tokens": 4,
+        "prompt_tokens": 3,
+        "total_tokens": 7
+      }
+    }
+  ]
+}

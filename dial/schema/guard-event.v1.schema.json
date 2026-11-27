@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pilotgate.example/schemas/dial-guard-event/v1",
+  "title": "DIAL Guard event, version 1",
+  "description": "One JSON line per guard finding, guard error or fail-open passthrough, plus one request_completed line per request. Events say where something was found and what the guard did, never the matched value: every free-form field is restricted to a fixed vocabulary or a pattern.",
+  "type": "object",
+  "required": ["schema", "time", "event_id", "request_id", "conversation_id", "deployment", "profile", "mode", "kind"],
+  "properties": {
+    "schema": { "const": "dial-guard.event.v1" },
+    "time": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$" },
+    "event_id": { "type": "string", "pattern": "^[0-9a-f]{32}$" },
+    "request_id": { "type": "string", "pattern": "^[0-9a-f]{32}$" },
+    "conversation_id": {
+      "description": "The x-conversation-id header when it looks like an identifier, otherwise a short hash of it.",
+      "type": ["string", "null"],
+      "pattern": "^([A-Za-z0-9._:-]{1,128}|sha256:[0-9a-f]{16})$"
+    },
+    "deployment": {
+      "description": "The DIAL deployment the guard fronts (x-dial-deployment-id, set by DIAL Core).",
+      "type": ["string", "null"],
+      "pattern": "^([A-Za-z0-9._:@/-]{1,200}|sha256:[0-9a-f]{16})$"
+    },
+    "profile": { "type": "string", "pattern": "^([a-z0-9][a-z0-9-]{0,63}|unknown)$" },
+    "mode": { "enum": ["enforce", "monitor"] },
+    "kind": {
+      "enum": ["injection", "pii", "link", "attachment_url", "canary", "guard_error", "fail_open_passthrough", "request_completed"]
+    },
+    "direction": { "enum": ["request", "response"] },
+    "location": {
+      "type": "string",
+      "pattern": "^(messages\\[\\d{1,6}\\](\\.content(\\[\\d{1,6}\\])?|\\.custom_content\\.(attachments\\[\\d{1,6}\\]\\.(data|url)|stages\\[\\d{1,6}\\]\\.(content|attachments\\[\\d{1,6}\\]\\.(data|url))))?|choices\\[\\d{1,4}\\]\\.(content|refusal|reasoning_content|stages\\[\\d{1,6}\\]\\.(name|content)|(stages\\[\\d{1,6}\\]\\.)?attachments\\[\\d{1,6}\\]\\.(title|data|url)|tool_calls\\[\\d{1,6}\\]\\.arguments|function_call\\.arguments))$"
+    },
+    "detector": {
+      "enum": [
+        "injection.instruction", "injection.hidden_text",
+        "pii.email", "pii.iban", "pii.phone_de", "pii.date_de", "pii.card", "pii.phone_intl",
+        "link.host_not_allowed", "link.ip_address", "link.unparseable", "link.obfuscated", "link.unsafe_scheme",
+        "link.too_long", "link.contains_pii",
+        "attachment.host_not_allowed", "attachment.ip_address", "attachment.unparseable", "attachment.obfuscated",
+        "attachment.unsafe_scheme",
+        "canary"
+      ]
+    },
+    "action": { "enum": ["quarantined", "flagged", "rejected", "redacted", "removed", "replaced", "blocked", "passed"] },
+    "count": { "type": "integer", "minimum": 1 },
+    "phase": { "enum": ["request", "response", "response_end", "sdk"] },
+    "error_type": { "type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,99}$" },
+    "outcome": { "enum": ["ok", "blocked", "rejected", "error", "upstream_error"] },
+    "stream": { "type": "boolean" },
+    "duration_ms": { "type": "number", "minimum": 0 },
+    "findings": {
+      "type": "object",
+      "propertyNames": { "enum": ["injection", "pii", "link", "attachment_url", "canary"] },
+      "additionalProperties": { "type": "integer", "minimum": 0 }
+    },
+    "guard_errors": { "type": "integer", "minimum": 0 },
+    "fail_open_passthroughs": { "type": "integer", "minimum": 0 }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "kind": { "enum": ["injection", "pii", "link", "attachment_url", "canary"] } } },
+      "then": {
+        "required": ["direction", "location", "detector", "action", "count"],
+        "properties": {
+          "schema": true, "time": true, "event_id": true, "request_id": true, "conversation_id": true,
+          "deployment": true, "profile": true, "mode": true, "kind": true,
+          "direction": true, "location": true, "detector": true, "action": true, "count": true
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "if": { "properties": { "kind": { "const": "guard_error" } } },
+      "then": {
+        "required": ["phase", "error_type"],
+        "properties": {
+          "schema": true, "time": true, "event_id": true, "request_id": true, "conversation_id": true,
+          "deployment": true, "profile": true, "mode": true, "kind": true, "phase": true, "error_type": true
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "if": { "properties": { "kind": { "const": "fail_open_passthrough" } } },
+      "then": {
+        "required": ["location", "action", "count"],
+        "properties": {
+          "schema": true, "time": true, "event_id": true, "request_id": true, "conversation_id": true,
+          "deployment": true, "profile": true, "mode": true, "kind": true, "location": true,
+          "action": { "const": "passed" }, "count": true
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "if": { "properties": { "kind": { "const": "request_completed" } } },
+      "then": {
+        "required": ["outcome", "stream", "duration_ms", "findings", "guard_errors", "fail_open_passthroughs"],
+        "properties": {
+          "schema": true, "time": true, "event_id": true, "request_id": true, "conversation_id": true,
+          "deployment": true, "profile": true, "mode": true, "kind": true, "outcome": true, "stream": true,
+          "duration_ms": true, "findings": true, "guard_errors": true, "fail_open_passthroughs": true
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "if": { "properties": { "kind": { "const": "injection" } } },
+      "then": { "properties": { "detector": { "enum": ["injection.instruction", "injection.hidden_text"] }, "action": { "enum": ["quarantined", "flagged"] } } }
+    },
+    {
+      "if": { "properties": { "kind": { "const": "pii" } } },
+      "then": { "properties": { "detector": { "pattern": "^pii\\." }, "action": { "enum": ["redacted", "flagged"] } } }
+    },
+    {
+      "if": { "properties": { "kind": { "const": "link" } } },
+      "then": { "properties": { "detector": { "pattern": "^link\\." }, "action": { "enum": ["removed", "flagged"] } } }
+    },
+    {
+      "if": { "properties": { "kind": { "const": "attachment_url" } } },
+      "then": { "properties": { "detector": { "pattern": "^attachment\\." }, "action": { "enum": ["replaced", "rejected", "flagged"] } } }
+    },
+    {
+      "if": { "properties": { "kind": { "const": "canary" } } },
+      "then": { "properties": { "detector": { "const": "canary" }, "action": { "enum": ["blocked", "flagged"] } } }
+    }
+  ]
+}

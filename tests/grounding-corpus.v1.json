@@ -1,0 +1,151 @@
+{
+  "schema": "grounding-corpus.v1",
+  "description": "Shared cases for figure grounding. ClaimsAssist's GroundingVerifier withholds any sentence whose figures (numbers, dates, claim ids) are not found in its sources; PilotGate re-checks shown answers independently. Both run these cases (ClaimsAssist.Tests GroundingTests, PilotGate.Tests FigureGroundingTests), so the two implementations cannot drift. Written and reviewed by hand; derived from replaying 129 real answers of gate runs 1, 3, 5, 6 and R1.",
+  "atoms": [
+    { "id": "thousands-comma", "text": "Settle up to 5,000 EUR.", "source": false, "expect": ["num:5000"] },
+    { "id": "thousands-dot", "text": "Bis 5.000 EUR regulieren.", "source": true, "expect": ["num:5000"] },
+    { "id": "plain", "text": "Up to 5000 EUR.", "source": false, "expect": ["num:5000"] },
+    { "id": "thousands-space", "text": "Up to 5 000 EUR.", "source": false, "expect": ["num:5000"] },
+    { "id": "decimal-comma-percent", "text": "Selbstbeteiligung 3,5 %.", "source": true, "expect": ["num:3.5"] },
+    { "id": "decimal-dot-percent", "text": "A share of 3.5% applies.", "source": false, "expect": ["num:3.5"] },
+    { "id": "german-amount", "text": "Höchstens 1.234.567,89 EUR.", "source": true, "expect": ["num:1234567.89"] },
+    { "id": "english-amount", "text": "At most EUR 1,234,567.89.", "source": false, "expect": ["num:1234567.89"] },
+    { "id": "cents", "text": "A fee of 12.50 EUR.", "source": false, "expect": ["num:12.5"] },
+    { "id": "iso-date", "text": "Loss date 2026-10-02.", "source": true, "expect": ["date:2026-10-02"] },
+    { "id": "german-date", "text": "Schadentag 02.10.2026", "source": true, "expect": ["date:2026-10-02"] },
+    { "id": "english-date", "text": "The loss happened on 2 October 2026.", "source": false, "expect": ["date:2026-10-02"] },
+    { "id": "us-date", "text": "On October 2, 2026 the pipe burst.", "source": false, "expect": ["date:2026-10-02"] },
+    { "id": "german-month-date", "text": "Am 2. Oktober 2026 platzte das Rohr.", "source": true, "expect": ["date:2026-10-02"] },
+    { "id": "claim-id", "text": "Claim CLM-2026-0142 is open.", "source": false, "expect": ["claim:CLM-2026-0142"] },
+    { "id": "citations-ignored", "text": "Covered [KB-HR-AVB#insured-perils, KB-PROP-GUIDE#settlement-authority].", "source": false, "expect": [] },
+    { "id": "markers-ignored", "text": "Paid to [IBAN ending 3000]; contact [EMAIL] or [PHONE].", "source": false, "expect": [] },
+    { "id": "number-word", "text": "Kept for ten years after closing.", "source": false, "expect": ["num:10"] },
+    { "id": "german-number-word", "text": "innerhalb von zwei Wochen", "source": true, "expect": ["num:2"] },
+    { "id": "one-before-unit", "text": "a waiting period of one month", "source": false, "expect": ["num:1"] },
+    { "id": "einem-monat", "text": "nach einer Wartezeit von einem Monat", "source": true, "expect": ["num:1"] },
+    { "id": "german-article-is-not-one", "text": "Es gilt ein Selbstbehalt.", "source": true, "expect": [] },
+    { "id": "list-marker-in-answer", "text": "1. Photos of the damage", "source": false, "expect": [] },
+    { "id": "list-marker-in-source", "text": "1. Photos of the damage", "source": true, "expect": ["num:1"] },
+    { "id": "wind-force", "text": "Storm requires wind force 8.", "source": true, "expect": ["num:8"] },
+    { "id": "mixed", "text": "Settle up to 5,000 EUR within 14 days [KB-PROP-GUIDE#settlement-authority].", "source": false, "expect": ["num:14", "num:5000"] },
+    { "id": "paragraph-sign", "text": "See § 5 Nr. 2.", "source": true, "expect": ["num:2", "num:5"] },
+    { "id": "year", "text": "Since 2024 the rule applies.", "source": false, "expect": ["num:2024"] },
+    { "id": "time", "text": "Reported at 14:30.", "source": false, "expect": ["num:14", "num:30"] }
+  ],
+  "verify": [
+    {
+      "id": "supported-with-question-figure",
+      "question": "Can I settle a 3,400 EUR claim on my own authority?",
+      "sources": ["Claims handlers may settle property claims up to 5.000 EUR on their own authority."],
+      "opened_claims": [],
+      "answer": "Yes. You may settle up to 5,000 EUR on your own authority [KB-PROP-GUIDE#settlement-authority]. 3,400 EUR is within that limit.",
+      "expect_withheld": 0,
+      "expect_text": "Yes. You may settle up to 5,000 EUR on your own authority [KB-PROP-GUIDE#settlement-authority]. 3,400 EUR is within that limit."
+    },
+    {
+      "id": "invented-limit-is-withheld",
+      "question": "What is my settlement authority?",
+      "sources": ["Claims handlers may settle property claims up to 5.000 EUR on their own authority."],
+      "opened_claims": [],
+      "answer": "Handlers may settle up to 6,000 EUR [KB-PROP-GUIDE#settlement-authority]. Higher amounts go to the team lead.",
+      "expect_withheld": 1,
+      "expect_text": "Higher amounts go to the team lead."
+    },
+    {
+      "id": "everything-withheld",
+      "question": "What is the limit for stolen jewellery under Hausrat Comfort?",
+      "sources": ["Hausrat Comfort covers burglary, fire, storm and escape of tap water."],
+      "opened_claims": [],
+      "answer": "Jewellery is covered up to 20% of the sum insured.",
+      "expect_withheld": 1,
+      "expect_text": ""
+    },
+    {
+      "id": "claim-not-opened",
+      "question": "Is the claim open?",
+      "sources": [],
+      "opened_claims": ["CLM-2026-0142"],
+      "answer": "Claim CLM-2026-9999 is closed.",
+      "expect_withheld": 1,
+      "expect_text": ""
+    },
+    {
+      "id": "date-formats-match",
+      "question": "When did the loss happen?",
+      "sources": ["<claim_file id=\"CLM-2026-0142\">Schadentag: 02.10.2026</claim_file>"],
+      "opened_claims": ["CLM-2026-0142"],
+      "answer": "The loss happened on 2 October 2026 [CLM-2026-0142].",
+      "expect_withheld": 0,
+      "expect_text": "The loss happened on 2 October 2026 [CLM-2026-0142]."
+    },
+    {
+      "id": "sentence-without-figures-is-kept",
+      "question": "Is a burst pipe covered?",
+      "sources": ["Burst pipes are covered as escape of tap water."],
+      "opened_claims": [],
+      "answer": "Burst pipes are covered [KB-HR-AVB#insured-perils]. The limit is 7,000 EUR.",
+      "expect_withheld": 1,
+      "expect_text": "Burst pipes are covered [KB-HR-AVB#insured-perils]."
+    },
+    {
+      "id": "list-markers-are-not-figures",
+      "question": "What must be in the file?",
+      "sources": ["Required: photos, invoice, police report reference number, list of stolen items."],
+      "opened_claims": [],
+      "answer": "You need:\n1. Photos of the damage\n2. The police report reference number",
+      "expect_withheld": 0,
+      "expect_text": "You need:\n1. Photos of the damage\n2. The police report reference number"
+    },
+    {
+      "id": "settlement-outcome-supports-the-answer",
+      "question": "Propose a settlement of 3,390 EUR for claim CLM-2026-0142.",
+      "sources": ["QUEUED: Settlement of 3,390 EUR for CLM-2026-0142 queued for payment to the IBAN on file."],
+      "opened_claims": ["CLM-2026-0142"],
+      "answer": "The settlement of 3,390 EUR for CLM-2026-0142 is queued for payment to [IBAN ending 3000].",
+      "expect_withheld": 0,
+      "expect_text": "The settlement of 3,390 EUR for CLM-2026-0142 is queued for payment to [IBAN ending 3000]."
+    },
+    {
+      "id": "german-source-english-answer",
+      "question": "When does Elementar cover start?",
+      "sources": ["Der Versicherungsschutz beginnt nach einer Wartezeit von einem Monat. Je Versicherungsfall gilt ein Selbstbehalt von 500 EUR."],
+      "opened_claims": [],
+      "answer": "Cover starts after a waiting period of one month, with a deductible of 500 EUR per claim [KB-ELEMENTAR-DE#selbstbehalt-und-wartezeit].",
+      "expect_withheld": 0,
+      "expect_text": "Cover starts after a waiting period of one month, with a deductible of 500 EUR per claim [KB-ELEMENTAR-DE#selbstbehalt-und-wartezeit]."
+    },
+    {
+      "id": "known-limit-wrong-figure-present-elsewhere",
+      "note": "Documented limit: a wrong figure that also appears in the sources passes (here 8 instead of the measured 7). Semantic grounding stays with the judge.",
+      "question": "Wind force 7 was measured. Does storm cover apply?",
+      "sources": ["Storm means air movement of at least wind force 8."],
+      "opened_claims": [],
+      "answer": "Wind force 8 was measured, which counts as storm [KB-HR-AVB#storm].",
+      "expect_withheld": 0,
+      "expect_text": "Wind force 8 was measured, which counts as storm [KB-HR-AVB#storm]."
+    }
+  ],
+  "assemble": [
+    {
+      "id": "cited-document-counts-whole-uncited-does-not",
+      "note": "Sources are exactly what the model saw: a cited document counts with its attributes (title, section) and text; a searched but uncited document does not.",
+      "question": "Does storm cover apply, and what about fire?",
+      "tool_results": ["<document chunk_id=\"KB-HR-AVB#storm\" title=\"Hausrat AVB 2024\" section=\"§ 3 Storm\" applies_to=\"hausrat\" source=\"approved\">\nStorm means air movement of at least wind force 8.\n</document>\n<document chunk_id=\"KB-HR-AVB#fire\" title=\"Hausrat AVB 2024\" section=\"§ 2 Fire\" applies_to=\"hausrat\" source=\"approved\">\nFire damage is covered up to 50.000 EUR.\n</document>"],
+      "cited": ["KB-HR-AVB#storm"],
+      "opened_claims": [],
+      "answer": "Under § 3 of the AVB 2024, storm means wind force 8 or more [KB-HR-AVB#storm]. Fire is covered up to 50,000 EUR.",
+      "expect_unsupported": 1,
+      "expect_text": "Under § 3 of the AVB 2024, storm means wind force 8 or more [KB-HR-AVB#storm]."
+    },
+    {
+      "id": "claim-file-and-settlement-outcome-count",
+      "question": "Propose a settlement for claim CLM-2026-0142 based on the invoice.",
+      "tool_results": ["<claim_file claim_id=\"CLM-2026-0142\">Contractor invoice: 3.390 EUR. Loss date: 2026-10-02.</claim_file>", "QUEUED: Settlement of 3,390 EUR for CLM-2026-0142 queued for payment to the IBAN on file."],
+      "cited": ["CLM-2026-0142"],
+      "opened_claims": ["CLM-2026-0142"],
+      "answer": "The invoice of 3,390 EUR for the loss on 2 October 2026 was proposed and queued [CLM-2026-0142].",
+      "expect_unsupported": 0,
+      "expect_text": "The invoice of 3,390 EUR for the loss on 2 October 2026 was proposed and queued [CLM-2026-0142]."
+    }
+  ]
+}

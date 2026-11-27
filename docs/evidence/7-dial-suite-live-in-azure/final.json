@@ -1,0 +1,13 @@
+{
+  "captured_at": "2026-11-27T18:05:32+00:00",
+  "resources": [
+    {
+      "name": "oai-pilotgate-demo001",
+      "type": "Microsoft.CognitiveServices/accounts"
+    },
+    {
+      "name": "id-pilotgate-ci",
+      "type": "Microsoft.ManagedIdentity/userAssignedIdentities"
+    }
+  ]
+}

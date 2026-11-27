@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-labelledby="t d" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+<title id="t">p95 answer time per gate run, against the 20-second budget</title>
+<desc id="d">Run 1: p95 10.5 s (NO-GO); Run 3: p95 8.5 s (GO); Run 5: p95 7.4 s (NO-GO); Run 6: p95 9.4 s (GO); Run 7: p95 3.4 s (GO); Run 8: p95 26.9 s (NO-GO); Run 9: p95 2.4 s (GO); Run 10: p95 2.5 s (GO). Budget 20 s.</desc>
+<rect width="1200" height="400" rx="12" fill="#1a1a19"/>
+<text x="32" y="44" font-size="20" font-weight="600" fill="#f0efec" text-anchor="start">p95 answer time per gate run, against the 20-second budget</text>
+<text x="32" y="70" font-size="14" font-weight="400" fill="#c3c2b7" text-anchor="start">Run 8 broke the budget (one request hung for the SDK's 100 s default) and was stopped; a 20 s timeout with retries fixed it</text>
+<line x1="80" y1="340.0" x2="1120" y2="340.0" stroke="#383835" stroke-width="1"/>
+<text x="68" y="344.0" font-size="12" font-weight="400" fill="#898781" text-anchor="end">0 s</text>
+<line x1="80" y1="263.3" x2="1120" y2="263.3" stroke="#2c2c2a" stroke-width="1"/>
+<text x="68" y="267.33333333333337" font-size="12" font-weight="400" fill="#898781" text-anchor="end">10 s</text>
+<line x1="80" y1="186.7" x2="1120" y2="186.7" stroke="#2c2c2a" stroke-width="1"/>
+<text x="68" y="190.66666666666669" font-size="12" font-weight="400" fill="#898781" text-anchor="end">20 s</text>
+<line x1="80" y1="110.0" x2="1120" y2="110.0" stroke="#2c2c2a" stroke-width="1"/>
+<text x="68" y="114.0" font-size="12" font-weight="400" fill="#898781" text-anchor="end">30 s</text>
+<line x1="80" y1="186.7" x2="1120" y2="186.7" stroke="#d03b3b" stroke-width="1.5"/>
+<text x="1120" y="178.66666666666669" font-size="12" font-weight="600" fill="#c3c2b7" text-anchor="end">Budget: 20 s (p95)</text>
+<path d="M80.0,259.5 L228.6,274.8 L377.1,283.3 L525.7,267.9 L674.3,313.9 L822.9,133.8 L971.4,321.6 L1120.0,320.8" fill="none" stroke="#3987e5" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="80.0" cy="259.5" r="6" fill="#1a1a19"/><circle cx="80.0" cy="259.5" r="4" fill="#3987e5"/>
+<text x="80.0" y="364" font-size="12" font-weight="400" fill="#898781" text-anchor="middle">Run 1</text>
+<circle cx="228.6" cy="274.8" r="6" fill="#1a1a19"/><circle cx="228.6" cy="274.8" r="4" fill="#3987e5"/>
+<text x="228.57142857142858" y="364" font-size="12" font-weight="400" fill="#898781" text-anchor="middle">Run 3</text>
+<circle cx="377.1" cy="283.3" r="6" fill="#1a1a19"/><circle cx="377.1" cy="283.3" r="4" fill="#3987e5"/>
+<text x="377.14285714285717" y="364" font-size="12" font-weight="400" fill="#898781" text-anchor="middle">Run 5</text>
+<circle cx="525.7" cy="267.9" r="6" fill="#1a1a19"/><circle cx="525.7" cy="267.9" r="4" fill="#3987e5"/>
+<text x="525.7142857142858" y="364" font-size="12" font-weight="400" fill="#898781" text-anchor="middle">Run 6</text>
+<circle cx="674.3" cy="313.9" r="6" fill="#1a1a19"/><circle cx="674.3" cy="313.9" r="4" fill="#3987e5"/>
+<text x="674.2857142857143" y="364" font-size="12" font-weight="400" fill="#898781" text-anchor="middle">Run 7</text>
+<circle cx="822.9" cy="133.8" r="6" fill="#1a1a19"/><circle cx="822.9" cy="133.8" r="4" fill="#3987e5"/>
+<text x="822.8571428571429" y="364" font-size="12" font-weight="400" fill="#898781" text-anchor="middle">Run 8</text>
+<circle cx="971.4" cy="321.6" r="6" fill="#1a1a19"/><circle cx="971.4" cy="321.6" r="4" fill="#3987e5"/>
+<text x="971.4285714285714" y="364" font-size="12" font-weight="400" fill="#898781" text-anchor="middle">Run 9</text>
+<circle cx="1120.0" cy="320.8" r="6" fill="#1a1a19"/><circle cx="1120.0" cy="320.8" r="4" fill="#3987e5"/>
+<text x="1120.0" y="364" font-size="12" font-weight="400" fill="#898781" text-anchor="middle">Run 10</text>
+<path d="M856.8571428571429,121.76666666666668 L868.8571428571429,133.76666666666668 L856.8571428571429,145.76666666666668 L844.8571428571429,133.76666666666668 Z" fill="#1a1a19"/><path d="M856.8571428571429,123.76666666666668 L866.8571428571429,133.76666666666668 L856.8571428571429,143.76666666666668 L846.8571428571429,133.76666666666668 Z" fill="#d03b3b"/><path d="M852.8571428571429,129.76666666666668 l8,8 M860.8571428571429,129.76666666666668 l-8,8" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round"/>
+<text x="874.8571428571429" y="138.76666666666668" font-size="13" font-weight="600" fill="#f0efec" text-anchor="start">26.9 s: NO-GO</text>
+<text x="1120.0" y="306.8333333333333" font-size="13" font-weight="600" fill="#f0efec" text-anchor="middle">2.5 s</text>
+</svg>

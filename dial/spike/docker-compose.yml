@@ -1,0 +1,25 @@
+﻿name: dialspike
+
+services:
+  redis:
+    image: redis:7.2.4-alpine3.19
+    command: ["redis-server", "--maxmemory", "64mb", "--maxmemory-policy", "volatile-lfu", "--save", "", "--appendonly", "no"]
+    mem_limit: 128m
+
+  core:
+    image: epam/ai-dial-core:0.50.8
+    depends_on: [redis]
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      JAVA_OPTS: "-Xms128m -Xmx384m -XX:+UseSerialGC"
+      AIDIAL_SETTINGS: /opt/settings/settings.json
+      aidial.config.files: '["/opt/config/config.json"]'
+      aidial.config.reload: "2000"
+      aidial.redis.singleServerConfig.address: redis://redis:6379
+      aidial.encryption.secret: ${DIAL_ENCRYPTION_SECRET:?set in .env}
+      aidial.encryption.key: ${DIAL_ENCRYPTION_KEY:?set in .env}
+    volumes:
+      - ./settings.json:/opt/settings/settings.json:ro
+      - ./config.json:/opt/config/config.json:ro
+    mem_limit: 768m

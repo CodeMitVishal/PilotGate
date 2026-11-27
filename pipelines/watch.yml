@@ -1,0 +1,47 @@
+# Production Watch, scheduled: metrics, drift and alerts from DIAL Guard events and the ClaimsAssist audit log.
+#
+# Runs on the self-hosted agent (the machine that runs the local DIAL stack). Pipeline variables, set in Azure DevOps:
+#   WATCH_EVENTS_FILE         absolute path of the guard's event log (dial/stack/data/events/events.jsonl)
+#   WATCH_AUDIT_FILE          absolute path of the ClaimsAssist audit log in DIAL mode
+#   PILOTGATE_WATCH_WEBHOOK   secret: the alert webhook URL (https). Unset means alerts are reported but not sent.
+# A run with alerts fails (exit code 1, or 3 when the webhook could not be reached), so Azure DevOps notifications
+# act as a second alert channel. The report is published as a pipeline artifact either way.
+
+trigger: none
+pr: none
+
+schedules:
+  - cron: "5 * * * *"
+    displayName: Hourly
+    branches:
+      include: [main]
+    always: true
+
+pool: Default
+
+variables:
+  DOTNET_NOLOGO: "true"
+  DOTNET_CLI_TELEMETRY_OPTOUT: "true"
+
+steps:
+  - checkout: self
+    clean: true
+
+  - pwsh: |
+      $events = "$(WATCH_EVENTS_FILE)"
+      $audit = "$(WATCH_AUDIT_FILE)"
+      if ($events.StartsWith('$(')) { throw "Set the pipeline variable WATCH_EVENTS_FILE to the guard's event log." }
+      $arguments = @("--config", "watch/watch.json", "--out", "$(Build.ArtifactStagingDirectory)/watch", "--events", $events)
+      if (-not $audit.StartsWith('$(')) { $arguments += @("--audit", $audit) }
+      dotnet run --project src/ProductionWatch -c Release -- @arguments
+      exit $LASTEXITCODE
+    displayName: Production Watch
+    env:
+      PILOTGATE_WATCH_WEBHOOK: $(PILOTGATE_WATCH_WEBHOOK)
+
+  - task: PublishPipelineArtifact@1
+    displayName: Publish the watch report
+    condition: succeededOrFailed()
+    inputs:
+      targetPath: $(Build.ArtifactStagingDirectory)/watch
+      artifact: production-watch

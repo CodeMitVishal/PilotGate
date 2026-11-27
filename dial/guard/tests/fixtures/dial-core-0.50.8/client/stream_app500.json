@@ -1,0 +1,36 @@
+{
+  "case": "stream_app500",
+  "deployment": "echo",
+  "stream": true,
+  "request_body": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "please !500"
+      }
+    ],
+    "stream": true
+  },
+  "status": 500,
+  "content_type": "application/json",
+  "response_header_names": [
+    "access-control-allow-origin",
+    "access-control-expose-headers",
+    "content-encoding",
+    "content-type",
+    "date",
+    "server",
+    "traceparent",
+    "transfer-encoding",
+    "x-dial-span-id",
+    "x-dial-trace-id",
+    "x-upstream-attempts"
+  ],
+  "body": {
+    "error": {
+      "message": "echo failure",
+      "type": "internal_server_error",
+      "code": "500"
+    }
+  }
+}
